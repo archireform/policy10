@@ -1,0 +1,471 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{box-sizing:border-box}body{margin:0}</style>
+<title>城鄉建築政策十問</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500&family=Noto+Serif+TC:wght@500;700;900&display=swap">
+<style>
+/* Layout: white page, small mark + nav, one large map panel offset right, quiet small type, serif for the big words, a calendar-like county grid */
+:root{
+  --bg:#ffffff; --ink:#1a1a1a; --muted:#777; --line:#dcdcdc; --soft:#eef1f1; --soft2:#e3e8e8;
+  --accent:#56708f; --hl:#ad6660;
+  --c-red:#ad6660; --c-white:#d9d6cf; --c-green:#628571; --c-blue:#56708f; --c-yellow:#c9b36a;
+  --sans:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",sans-serif;
+  --serif:"Noto Serif TC","Noto Serif CJK TC","Songti TC","PMingLiU",serif;
+  color-scheme:light;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:13px;line-height:1.9;letter-spacing:.04em}
+h1,h2,h3,p{margin:0}
+a{color:inherit;text-decoration:none}
+button{font:inherit;letter-spacing:inherit;color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(64px,env(safe-area-inset-right,0px))}
+.en{display:block;font-size:9.5px;letter-spacing:.12em;color:var(--muted);line-height:1.3}
+.sh{font-size:12px;font-weight:700;letter-spacing:.14em;display:flex;align-items:baseline;gap:10px}
+.sh .en{display:inline;font-weight:500}
+
+/* header */
+header{display:flex;justify-content:space-between;align-items:flex-start;padding-block:30px 22px}
+.logo{font-size:15px;font-weight:700;letter-spacing:.32em}
+nav.main{display:flex;align-items:stretch}
+nav.main a{text-align:center;padding:0 16px;font-size:12px;line-height:1.5}
+nav.main a+a{border-left:0}
+nav.main .sep{border-left:1px solid var(--ink);margin:0 4px}
+nav.main a.box{border:1px solid var(--ink);padding:3px 14px}
+nav.main a:hover{opacity:.55}
+
+/* hero */
+.hero{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;align-items:start}
+.side{display:grid;gap:26px;padding-top:4px;align-content:start}
+.mark{display:grid;grid-template-columns:repeat(2,26px);gap:5px;width:max-content}
+.mark i{height:13px;display:block}
+.mark i:nth-child(1){background:var(--c-red)}.mark i:nth-child(2){background:var(--ink)}.mark i:nth-child(3){background:var(--ink)}.mark i:nth-child(4){background:var(--c-green)}.mark i:nth-child(5){background:var(--c-blue)}.mark i:nth-child(6){background:var(--ink)}.mark i:nth-child(7){background:var(--ink)}.mark i:nth-child(8){background:var(--c-yellow)}
+.side h1{font-family:var(--serif);font-weight:900;font-size:30px;line-height:1.35;letter-spacing:.12em}
+.ttl{display:grid;gap:10px}
+.yr{font-size:12px;font-weight:700;letter-spacing:.2em;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:3px 0;width:max-content}
+.side .poem{font-size:12.5px;line-height:2.1}
+.side .poem.en2{font-size:10px;line-height:1.8;color:#444;letter-spacing:.06em}
+.panel{position:relative;background:var(--soft);min-height:640px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr)}
+.readout{padding:34px 30px;display:grid;align-content:start;gap:30px}
+.readout .now{display:grid;gap:4px}
+.readout .now small{font-size:11px;color:var(--muted);letter-spacing:.2em}
+.readout .city{font-family:var(--serif);font-weight:900;font-size:56px;line-height:1.1;letter-spacing:.08em}
+.readout .facts{display:flex;gap:26px;font-size:12px}
+.readout .facts b{font-family:var(--serif);font-size:28px;font-weight:700;margin-right:4px}
+.readout ul{list-style:none;margin:0;padding:0;border-top:1px solid #c9cfcf}
+.readout li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid #c9cfcf;padding:7px 0;font-size:14px;font-weight:500}
+.readout li span{font-size:11px;color:var(--muted);font-weight:400}
+.readout .hint{font-size:11px;color:var(--muted);margin-top:auto}
+.mapbox{position:relative;align-self:center;width:100%;max-width:440px;justify-self:center;margin:24px 0}
+.mapbox svg{width:100%;height:auto;display:block;overflow:visible}
+.ct{fill:#fff;stroke:#9aa5a5;stroke-width:.6;stroke-linejoin:round;cursor:pointer;transition:fill .2s,transform .25s,filter .25s;transform-box:fill-box;transform-origin:center}
+.ct:hover{fill:#d6dede;transform:translate(-3px,-6px);filter:drop-shadow(3px 6px 0 rgba(0,0,0,.12))}
+.ct.on{fill:var(--ink);stroke:var(--ink);transform:translate(-3px,-6px);filter:drop-shadow(3px 6px 0 rgba(0,0,0,.18))}
+.ct:focus{outline:none}
+.box{fill:none;stroke:#9aa5a5;stroke-dasharray:2 3;cursor:pointer}
+.box.on{stroke:var(--ink);stroke-dasharray:none}
+.pill{position:absolute;transform:translate(-50%,-50%);font-size:10px;background:none;border:0;padding:0 3px;white-space:nowrap;cursor:pointer;color:#333;letter-spacing:.06em}
+.pill:hover{text-decoration:underline}
+.pill.on{background:var(--ink);color:#fff;padding:0 5px}
+
+/* fixed side tabs */
+.tabs-fixed{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:42%;display:grid;gap:10px;z-index:20}
+.tabs-fixed a{background:var(--ink);color:#fff;writing-mode:vertical-rl;font-size:11px;letter-spacing:.3em;padding:14px 8px 10px;display:flex;align-items:center;gap:10px}
+.tabs-fixed a::after{content:"→";writing-mode:horizontal-tb;font-size:11px}
+.tabs-fixed a:hover{background:var(--hl)}
+
+/* questions & answers */
+.qa{padding-top:84px;display:grid;gap:26px}
+.qtabs{display:flex;flex-wrap:wrap;border-top:1px solid var(--ink)}
+.qtab{background:none;border:0;border-bottom:1px solid var(--line);padding:9px 14px 8px 0;margin-right:14px;cursor:pointer;text-align:left;line-height:1.5;font-size:12px}
+.qtab b{display:block;font-size:10px;font-weight:500;color:var(--muted)}
+.qtab:hover{color:var(--muted)}
+.qtab[aria-pressed="true"]{border-bottom:3px solid var(--qc,var(--ink));font-weight:700}
+.qnow{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:40px;align-items:end}
+.qnow .ask{font-family:var(--serif);font-weight:900;font-size:clamp(26px,3.4vw,40px);line-height:1.45;letter-spacing:.06em}
+.qnow .ask em{font-style:normal;display:block;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--qc,var(--hl));margin-bottom:10px}
+.qnow .meta{font-size:12px;display:grid;gap:12px;border-left:1px solid var(--line);padding-left:20px}
+.qnow .meta small{display:block;font-weight:700;letter-spacing:.14em;font-size:10.5px;color:var(--muted)}
+.qnow .desc{grid-column:1/-1;font-size:13px;max-width:70ch;color:#444}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:34px 34px}
+.card{display:grid;gap:8px;align-content:start;min-width:0}
+.card .date{font-size:10px;color:var(--muted);letter-spacing:.1em}
+.card h3{font-family:var(--serif);font-weight:900;font-size:26px;letter-spacing:.1em;line-height:1.3;border-bottom:1px solid var(--ink);padding-bottom:8px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.card h3 span{font-family:var(--sans);font-size:10.5px;font-weight:500;color:var(--muted);letter-spacing:.04em}
+.card .goal{font-size:13px;font-weight:700}
+.card .goal small{display:inline-block;background:var(--ink);color:#fff;font-size:10px;padding:0 6px;margin-right:6px;font-weight:500}
+.card .txt{font-size:12.5px;color:#444;white-space:pre-wrap;overflow-wrap:anywhere}
+.card .none{font-size:12px;color:var(--muted)}
+.st{display:grid;gap:4px;font-size:12px}
+.st b{display:inline-block;border:1px solid var(--ink);font-size:10.5px;padding:0 6px;margin-right:6px;font-weight:500}
+.tag{font-size:9.5px;border:1px solid var(--line);padding:0 5px;margin-left:6px;font-family:var(--sans);font-weight:400;color:var(--muted);vertical-align:middle}
+.notice{font-size:11px;color:var(--muted)}
+.lnk{background:none;border:0;border-bottom:1px solid currentColor;padding:0;cursor:pointer;color:var(--ink);font-weight:700}
+
+/* schedule · about · organizer */
+.lower{margin-top:100px;padding-block:44px 80px;border-top:1px solid var(--ink);display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.1fr);gap:56px}
+.blk{display:grid;gap:18px;align-content:start}
+.blk p{font-size:15px;line-height:2;color:#333}
+.blk dl{margin:0;display:grid;gap:22px}
+.blk dt{font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--muted)}
+.blk dd{margin:0;font-family:var(--serif);font-weight:900;font-size:26px;letter-spacing:.06em;line-height:1.4}
+.blk dd .en{font-family:var(--sans);font-weight:500;font-size:10.5px;margin-top:4px}
+.blk .lead2{font-family:var(--serif);font-weight:900;font-size:30px;line-height:1.5;letter-spacing:.1em;color:var(--ink)}
+.blk .org{font-family:var(--serif);font-weight:900;font-size:30px;letter-spacing:.14em;color:var(--ink)}
+.btn{display:inline-block;border:1px solid var(--ink);padding:8px 20px;font-size:13px;margin:4px 8px 0 0}
+.btn.k{background:var(--ink);color:#fff}
+.btn:hover{opacity:.7}
+footer{border-top:1px solid var(--line);padding-block:20px 34px;font-size:10.5px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:900px){
+  .wrap{padding-right:max(24px,env(safe-area-inset-right,0px))}
+  header{flex-direction:column;gap:14px}
+  nav.main{flex-wrap:wrap}
+  nav.main a{padding:0 10px}
+  .hero{grid-template-columns:1fr}.side{position:static}
+  .panel{grid-template-columns:1fr;min-height:0}
+  .readout .city{font-size:42px}
+  .readout .facts{gap:14px;flex-wrap:wrap}.readout .facts span{white-space:nowrap}.readout .facts b{font-size:24px}
+  nav.main .sep{display:none}.side .poem.en2{display:none}.side{gap:16px}.side .poem br{display:none}
+  .qnow{grid-template-columns:1fr}.qnow .meta{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:14px}
+  .lower{grid-template-columns:1fr;gap:40px;margin-top:70px}
+  .grid{grid-template-columns:repeat(4,1fr)}
+  .tabs-fixed{top:auto;bottom:16px}
+  .tabs-fixed a{writing-mode:horizontal-tb;padding:8px 12px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ct{transition:none}.ct:hover,.ct.on{transform:none}}
+</style>
+<style>
+/* 珊瑚橘＋鼠尾草綠＋長春花藍 palette trial */
+:root{--ink:#262626;--muted:#6e6a62;--line:#dcd8cf;--bg:#f4f2eb;--hl:#f98b64;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+html,body{overflow-x:clip}
+@media (min-width:901px){.wrap{padding-left:max(64px,env(safe-area-inset-left,0px))}}
+body{background:#f4f2eb;color:#262626}
+.en,.card .date,.qtab b,.side .poem.en2,.yr,.readout .now small,.readout .hint{font-family:var(--mono),var(--sans)}
+.side h1{color:#f98b64}.side h1::first-line{color:#262626}
+.mark i:nth-child(1){background:#f98b64}.mark i:nth-child(2){background:#e9e6de}.mark i:nth-child(3){background:#c3d9a5}.mark i:nth-child(4){background:#f98b64}.mark i:nth-child(5){background:#c9cffa}.mark i:nth-child(6){background:#c3d9a5}.mark i:nth-child(7){background:#e9e6de}.mark i:nth-child(8){background:#c9cffa}
+.yr{border:0;background:#f98b64;color:#262626;padding:3px 9px}
+.panel{background:#c9cffa}
+.readout{background:#f98b64}
+.readout ul,.readout li{border-color:rgba(38,38,38,.25)}
+.readout li span,.readout .now small,.readout .hint{color:#4a2414}
+.ct{fill:#f4f2eb;stroke:#8e95cc;stroke-width:.6}
+.ct:hover{fill:#c3d9a5;stroke:#262626;filter:drop-shadow(3px 6px 0 rgba(38,38,38,.15))}
+.ct.on{fill:#f98b64;stroke:#262626;filter:drop-shadow(3px 6px 0 rgba(38,38,38,.25))}
+.box{stroke:#8e95cc}.box.on{stroke:#262626}
+.pill{color:#262626}.pill.on{background:#262626;color:#fff}
+.qtab[aria-pressed="true"]{border-bottom-color:#f98b64}
+.qnow .ask em{color:#e2653b}
+.cards{gap:10px}
+.card{background:#e9e6de;padding:18px 20px 22px}
+.card:nth-child(5n+1){background:#f98b64}.card:nth-child(5n+3){background:#c3d9a5}.card:nth-child(5n+5){background:#c9cffa}
+.card h3{border-bottom-color:#262626;font-size:23px;flex-wrap:wrap}
+.card .goal small{background:#262626}
+.st b{border-color:#262626}
+.lnk{color:#e2653b}
+.tabs-fixed a{background:#262626}.tabs-fixed a:nth-child(1){background:#f98b64;color:#262626}
+nav.main a.box{background:#f98b64;border-color:#f98b64}
+.lower{border-top:0;background:#e9e6de;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%);margin-top:90px;padding-block:64px 80px}
+.blk .lead2{color:#e2653b}
+.blk dt{color:#6e6a62}
+.btn.k{background:#f98b64;border-color:#f98b64;color:#262626}
+footer{background:#c9cffa;border-top:0;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);padding-left:calc(50vw - 50%);padding-right:calc(50vw - 50%);padding-block:30px 40px;color:#262626}
+</style>
+<style>
+/* 黑體 trial: sans for all headings */
+:root{--serif:"Noto Sans TC","Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",sans-serif}
+.side h1,.readout .city,.qnow .ask,.card h3,.blk dd,.blk .lead2,.blk .org{font-weight:900;letter-spacing:.01em}
+.side h1{font-size:32px;line-height:1.25}
+.readout .city{font-size:60px;letter-spacing:0}
+.qnow .ask{line-height:1.35}
+.readout .facts b{font-weight:900}
+</style>
+<style>
+/* M7 深色 arrangement */
+.readout{background:#f98b64}
+.panel{background:#c9cffa}
+.ct{fill:#f4f2eb}
+.ct:hover{fill:#c3d9a5}
+.ct.on{fill:#262626}
+.pill.on{background:#262626;color:#fff}
+.lower{background:#262626}
+footer{background:#f98b64;color:#262626}
+.yr,.btn.k,nav.main a.box,.tabs-fixed a:nth-child(1){background:#f98b64;border-color:#f98b64;color:#262626}
+.side h1{color:#f98b64}
+</style>
+<style>
+.lower p,.blk dd,.blk .org,.lower .sh{color:#f4f2eb}
+.blk dt,.lower .en,.lower .sh .en{color:#b9b4aa}
+.blk .lead2{color:#f98b64}
+.lower .btn{border-color:#f4f2eb;color:#f4f2eb}.lower .btn.k{color:#262626}
+</style>
+
+</head><body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="#top">建築改革社</a>
+    <nav class="main" aria-label="主要導覽">
+      <a href="#map">地圖<span class="en">map</span></a>
+      <a href="#qa">十問與回覆<span class="en">questions</span></a>
+      <a href="#about">緣起<span class="en">about</span></a>
+      <span class="sep"></span>
+      <a class="box" href="answer.html">候選人填答<span class="en">for candidates</span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" id="map" aria-label="縣市地圖">
+      <div class="side">
+        <div class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="ttl"><span class="yr">2026 九合一大選</span><h1>城鄉建築<br>政策十問</h1></div>
+        <p class="poem">同樣十個問題，<br>問全國八十一位<br>縣市長參選人。<br>回覆原文公開，<br>同題並排，<br>選後追蹤承諾。</p>
+        <p class="poem en2">Ten questions on streets, homes<br>and public buildings,<br>asked of every mayoral candidate.<br>Answers published in full.</p>
+      </div>
+      <div class="panel">
+        <div class="readout" aria-live="polite">
+          <div class="now"><small>目前檢視</small><div class="city" id="selName">臺北市</div></div>
+          <div class="facts"><span><b id="selN">-</b>位參選人</span><span><b id="selGot">-</b>位已回覆</span><span><b id="days">--</b>天後投票</span></div>
+          <ul id="selNames"></ul>
+          <p class="hint">滑過地圖切換縣市，點擊查看回覆。</p>
+        </div>
+        <div class="mapbox" id="mapbox"></div>
+      </div>
+    </section>
+
+    <section class="qa" id="qa" aria-labelledby="h-qa">
+      <h2 class="sh" id="h-qa">十問與回覆<span class="en">questions &amp; answers</span><span class="en" style="margin-left:auto" id="ansCity2"></span></h2>
+      <div class="qtabs" id="qtabs" role="group" aria-label="選擇題目"></div>
+      <div class="qnow" id="qnow"></div>
+      <p class="notice" id="pubNotice"></p>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section class="lower" id="about">
+      <div class="blk">
+        <h2 class="sh">時程<span class="en">schedule</span></h2>
+        <dl>
+          <div><dt>參選人填答截止</dt><dd>11 月 9 日（一）<span class="en">deadline for candidates · Nov 9</span></dd></div>
+          <div><dt>回覆公開</dt><dd>送出即公開<span class="en">answers go live on submission</span></dd></div>
+          <div><dt>投票日</dt><dd>11 月 28 日（六）<span class="en">election day · Nov 28</span></dd></div>
+        </dl>
+      </div>
+      <div class="blk">
+        <h2 class="sh">緣起<span class="en">about</span></h2>
+        <p class="lead2">選前說清楚，<br>選後追得到。</p>
+        <p>城市與鄉鎮的生活品質，體現在每天經過的街道、居住的房屋與使用的公共建築。本計畫從建築專業與公共利益出發，向各縣市長候選人提出相同的十個問題，邀請他們說明具體主張、執行方式與可檢驗的目標。</p>
+        <p>提問跨黨派、公開且一致，不預設標準答案，也不評分、不排名。回覆原文公開供市民比較，當選人的承諾將持續追蹤，成為選後檢驗的公共紀錄。</p>
+      </div>
+      <div class="blk">
+        <h2 class="sh">主辦<span class="en">organizer</span></h2>
+        <p class="org">建築改革社</p>
+        <p>建築改革社（簡稱建改社）成立於2006年，是關注建築專業、城鄉環境與公共政策的民間團體。長期從建築實務與公共利益出發，關心專業工作環境、公共工程品質、建築法令與城市治理，並透過交流、研究、政策建言與公共倡議，推動更合理、友善且具公共價值的生活環境。</p>
+        <p><a class="btn k" href="#qa">看回覆</a><a class="btn" href="answer.html">候選人填答入口</a></p>
+      </div>
+    </section>
+  </main>
+  <footer><span>城鄉建築政策十問 ・ 2026 地方選舉 ・ 建築改革社</span><span>候選人名單依中央選舉委員會公告</span></footer>
+</div>
+<nav class="tabs-fixed" aria-label="快速連結"><a href="answer.html">候選人填答</a><a href="#qa">看回覆</a></nav>
+
+<script>
+const ENDPOINT = "";
+const QUESTIONS = [
+ {id:"Q1", t:"友善步行", en:"Walkable streets", c:"從住家走到學校、市場、車站，能不能一路安全、順暢？",
+  d:"請說明您將優先改善哪些地區的人行空間、通學環境與路口安全，如何處理人行道中斷、騎樓高低不平、障礙物占用，以及輪椅、嬰兒車通行困難。",
+  s:[], g:"任內新設或拓寬人行道 ○ 公里、騎樓整平 ○ 處、路口改善 ○ 處、通學步道 ○ 條，○○ 年完成。"},
+ {id:"Q2", t:"氣候調適", en:"Climate adaptation", c:"面對愈來愈熱的夏天與極端降雨，城市準備好了嗎？",
+  d:"請說明您將如何改善街道遮蔭、候車空間、排水、透水、滯洪與避雨環境，以及既有公有建築的隔熱與節能；優先改善哪些地區。",
+  s:[], g:"新增遮蔭路段 ○ 公里、滯洪量 ○ 萬噸、透水鋪面 ○ 平方公尺、公有建築節能改善 ○ 棟。"},
+ {id:"Q3", t:"可負擔居住", en:"Affordable housing", c:"房租與房價持續上升，市民還住得起這座城市嗎？",
+  d:"請說明社會住宅、包租代管、租金補貼等政策的供給目標、選址原則、服務對象與租金訂定原則，以及如何與交通、托育、長照等生活服務整合。",
+  s:[], g:"任內新增社會住宅 ○ 戶、包租代管 ○ 戶；租金訂為市價 ○ 成以下。"},
+ {id:"Q4", t:"老屋與都市更新", en:"Aging buildings & renewal", c:"面對大量老屋，哪些該修、該補強，哪些該更新重建？",
+  d:"請說明老屋安全評估、耐震補強、整建維護、危老重建與都市更新的推動方式；對無力負擔、不同意重建或需要安置的住戶與租屋者，政府提供哪些具體協助；具保存價值的老建築在拆除前，是否建立公開的價值評估程序。",
+  s:["具保存價值的老建築，拆除前應經公開的價值評估程序。"], g:"耐震初評 ○ 棟、補強 ○ 棟、整建維護或老宅延壽 ○ 件，○○ 年完成。"},
+ {id:"Q5", t:"公共建築品質", en:"Public buildings", c:"學校、圖書館、活動中心等公共建築，蓋好之後真的好用嗎？",
+  d:"請說明您將如何讓實際使用者參與需求規劃，並建立啟用後的使用評估與改善機制，使公共建築不只如期完工，也能真正符合市民需求。",
+  s:[], g:"任內完成 ○ 處公共建築使用後評估並公開結果。"},
+ {id:"Q6", t:"公共設施維護", en:"Maintenance & care", c:"公共設施完工之後，誰來負責維護與持續改善？",
+  d:"請說明您將如何在規劃階段納入後續維護經費與管理責任，建立市民通報與追蹤機制，並將既有公共工程的使用經驗與問題回饋到後續政策與設計。",
+  s:[], g:"新建公共設施全數附維護計畫與經費；市民通報案件 ○ 日內回覆處理進度。"},
+ {id:"Q7", t:"公共參與", en:"Public participation", c:"重大建設或家門口的公共空間改造，市民能不能在定案前真正參與？",
+  d:"請說明哪些階段應開放居民、使用者與專業者參與；政府將如何公開方案、回應意見，並說明採納或不採納的理由；都市計畫、都市設計、環境影響評估等審議會議是否對外公開。",
+  s:["都市計畫、都市設計、環評審議會議全程直播，或公開完整紀錄與委員發言。"], g:"○○ 年起審議會議直播或公開紀錄；重大建設定案前辦理 ○ 場公開說明。"},
+ {id:"Q8", t:"工程管理與責任", en:"Accountable public works", c:"公共工程能不能少一點延誤、追加預算與互相推責？",
+  d:"請說明您將如何釐清機關、設計、監造與施工單位的權責，並公開工程進度、設計變更、追加經費與延誤原因，建立可追蹤的責任機制。",
+  s:["重大工程的設計變更、追加預算與延誤原因，主動對外公開。"], g:"○○ 年建置工程資訊公開平台，涵蓋 ○ 萬元以上之公共工程。"},
+ {id:"Q9", t:"合理專業與公共品質", en:"Quality over lowest bid", c:"公共工程要節省公帑，但哪些成本不能省到影響品質？",
+  d:"請說明您將如何依實際物價合理編列工程預算與規劃設計監造經費、減少流標，讓工作內容、期程與經費合理相稱；重大公共建築的設計採購如何公開透明；並如何要求專業者對品質、預算與使用成果負責，避免只以最低價格決定公共空間品質。",
+  s:["公共工程不以最低價決標，依實際物價合理編列預算。","重大公共建築採公開競圖或公開評選，並公開評選委員名單與評選紀錄。"],
+  g:"○○ 年起適用物價調整編列基準；○ 億元以上公共建築全數公開競圖或評選。"},
+ {id:"Q10", t:"制度改革", en:"Institutional reform", c:"哪些讓市民與專業者長期反覆碰壁的制度，您願意在任內優先改革？",
+  d:"請提出至少一項地方政府可主動改善的建築、都市、工程或空間治理制度（例如建管與審照效率、線上申辦、BIM 送審），說明改革內容、時程與成效指標；如涉及中央法令，也請說明您將如何提出修法建議或推動跨縣市合作。",
+  s:[], g:"改革項目一項＋完成年份＋成效指標。"}
+];
+
+const CITIES = ["臺北市","新北市","桃園市","臺中市","臺南市","高雄市","基隆市","新竹市","嘉義市","新竹縣","苗栗縣","彰化縣","南投縣","雲林縣","嘉義縣","屏東縣","宜蘭縣","花蓮縣","臺東縣","澎湖縣","金門縣","連江縣"];
+const STATUS = {done:"已完整回覆", part:"部分回覆", check:"暫停公開", none:"尚未回覆"};
+const DEMO = {updated:"2026-11-13", candidates:[
+  {id:"d1", example:true, name:"範例參選人甲", city:"臺北市", party:"範例黨", status:"done", version:2, submittedAt:"2026-11-05",
+   links:{site:"https://example.org"}, answers:{
+    Q1:{text:"（範例文字）優先改善國小周邊 500 公尺內的通學路徑，清除騎樓占用並整平高低差。",goal:"新設或拓寬人行道 30 公里、通學步道 40 條，2029 年完成"},
+    Q4:{text:"（範例文字）以 1980 年代以前集合住宅為優先，公告耐震初評結果。",stances:["有條件"],goal:"耐震初評 3,000 棟、補強 300 棟，2030 年完成"},
+    Q9:{text:"（範例文字）依營造工程物價指數每年調整預算基準。",stances:["是","是"],goal:"2027 年起適用物價調整編列基準"}}},
+  {id:"d2", example:true, name:"範例參選人乙", city:"臺北市", party:"範例聯盟", status:"part", version:1, submittedAt:"2026-11-08",
+   answers:{Q1:{text:"（範例文字）全面盤點人行道中斷點，三年內補齊。",goal:""},
+    Q9:{text:"（範例文字）支持合理編列，但須兼顧財政紀律。",stances:["有條件","否"],goal:""}}},
+  {id:"d4", example:true, name:"徐忠瑋", city:"高雄市", party:"範例黨", status:"done", version:1, submittedAt:"2026-10-28",
+   links:{site:"https://example.org", paper:"https://example.org/whitepaper"}, answers:{
+    Q1:{text:"高雄的人行環境最大的問題是騎樓高低不平、機車占用，以及大路口行人等候時間過長。我們將以國小、捷運站、傳統市場周邊 500 公尺為優先範圍，由工務局統籌、警察局配合執法，分三年完成騎樓整平與退縮地人行道串連；同時檢討號誌時相，讓行人優先通過。每季公布改善路段地圖，市民可以逐段檢驗。",goal:"任內騎樓整平 1,200 處、通學步道 60 條、路口改善 300 處，2030 年完成"},
+    Q2:{text:"高雄夏季高溫與午後強降雨並存。我們將推動「遮蔭走廊」，在公車站、捷運出入口與主要步行軸線增設遮蔭與植栽；新建與改建公園一律設計為可滯洪的低窪綠地，並優先改善三民、苓雅等易淹水區的排水瓶頸。既有學校與公有建築分批加做屋頂隔熱與太陽能，降低室內溫度與用電。",goal:"新增遮蔭路段 80 公里、滯洪量 50 萬噸、公有建築隔熱節能改善 150 棟"},
+    Q3:{text:"住宅政策以「近捷運、近生活機能」為原則，社會住宅選址優先使用捷運站周邊公有土地，並在一樓配置托育、長照與社區服務空間。包租代管擴大媒合青年與弱勢家庭，租金依所得分級，最低為市價六折。都市更新案中的公益回饋，優先轉為只租不售的出租住宅。",goal:"任內新增社會住宅 8,000 戶、包租代管 12,000 戶；租金為市價 8 成以下"},
+    Q4:{text:"老屋處理分三類：結構安全有疑慮者優先補強或重建；具街區特色的老屋以整建維護、老宅延壽方式保存；其餘鼓勵自主更新。市府將提供耐震初評全額補助，並成立更新輔導團，協助弱勢住戶與租屋者在施工期間的租金補貼與安置。拆除具保存價值的建築前，應先經公開的價值評估。",stances:["是"],goal:"耐震初評 6,000 棟、補強 600 棟、老宅延壽 200 件，2030 年完成"},
+    Q5:{text:"公共建築在規劃階段就應找來實際使用者，例如圖書館邀請館員與讀者、學校邀請師生參與需求訪談。完工啟用一年後，由第三方進行使用後評估，結果公開，並作為後續設計準則的修正依據。",goal:"任內完成 40 處公共建築使用後評估並全數公開報告"},
+    Q6:{text:"新建公共設施在編列工程預算時，一併編列至少十年的維護計畫與經費，並在設計階段明訂管理機關。市民可透過 1999 與 App 通報設施損壞，系統公開案件處理進度；常見問題將定期回饋給設計審查，避免同樣的問題一再發生。",goal:"新建公共設施全數附維護計畫；通報案件 7 日內回覆處理進度"},
+    Q7:{text:"重大建設應在可行性評估與規劃設計兩個階段辦理公開說明，方案與簡報資料提前上網。市府將逐條回應民眾意見，說明採納或不採納的理由。都市計畫與都市設計審議會議全程直播，並公開會議紀錄與委員發言。",stances:["是"],goal:"2027 年起審議會議全程直播；重大建設定案前至少辦理 3 場公開說明"},
+    Q8:{text:"公共工程延誤與追加預算，常源自需求不明確與權責不清。我們將建置工程資訊公開平台，公開每件工程的進度、設計變更、追加金額與延誤原因，並明確區分機關、設計、監造與施工單位的責任，作為後續考核依據。",stances:["是"],goal:"2027 年平台上線，涵蓋 5,000 萬元以上之公共工程"},
+    Q9:{text:"工程預算應依營造工程物價指數每年檢討，規劃設計監造服務費依工程會基準合理編列，避免預算失真造成流標或壓縮品質。重大公共建築原則採公開評選，評選委員名單與評選紀錄公開；但小型、急迫性工程保留彈性。",stances:["是","有條件"],goal:"2027 年起適用物價調整編列基準；3 億元以上公共建築全數公開評選"},
+    Q10:{text:"優先改革建管審查效率：建造執照與室內裝修審查全面線上化，公開各階段審查天數，並統一審查標準，減少反覆補正。涉及中央法令的部分，將與其他直轄市共同提出建築法與相關規則的修法建議。",goal:"2028 年建照平均審查 30 天內、全面線上申辦"}}},
+  {id:"d5", example:true, name:"範例參選人戊", city:"高雄市", party:"範例聯盟", status:"done", version:2, submittedAt:"2026-11-02",
+   links:{site:"https://example.org"}, answers:{
+    Q1:{text:"步行環境要從「人」的角度重新分配道路空間。我們將在鹽埕、哈瑪星、旗津等觀光與老街區試辦人行優先街道，降低車速、拓寬人行空間；其他行政區以學校周邊為優先，逐年推動。",goal:"人行優先街道 15 條、學校周邊人行改善 120 所，2029 年完成"},
+    Q2:{text:"氣候調適的核心是「讓水有地方去、讓人有地方躲」。我們將盤點全市可轉作滯洪的公有空地，並把行道樹覆蓋率列為道路工程驗收項目；高溫日開放公有建築作為避暑據點。",goal:"綠覆率提升 5 個百分點；設置 100 處避暑據點"},
+    Q3:{text:"高雄房價相對可負擔，但青年與單親家庭仍有租屋困難。我們以包租代管與租金補貼為主、新建社宅為輔，避免大量新建造成財政負擔，並結合老屋整修釋出出租住宅。",goal:"包租代管 20,000 戶、老屋整修出租 1,000 戶"},
+    Q4:{text:"支持以整建維護為主、重建為輔。老舊公寓優先協助加裝電梯與耐震補強；危老重建簡化程序。對於具保存價值的老建築，應先評估，但不宜因評估程序過度延宕私人產權的處分。",stances:["有條件"],goal:"老公寓加裝電梯 300 案、耐震補強 400 棟"},
+    Q5:{text:"公共建築應從「蓋得出來」轉為「用得下去」。規劃前辦理使用者工作坊，設計階段邀請未來營運單位參與審查；啟用後兩年內完成使用評估。",goal:"新建公共建築 100% 辦理使用者工作坊"},
+    Q6:{text:"將「維護」納入工程生命週期預算，設施移交時一併移交維護手冊與經費。建立公共設施健檢制度，每三年檢視一次並公開結果。",goal:"公共設施健檢每 3 年一輪，結果全數上網"},
+    Q7:{text:"參與不應只是說明會。我們將以參與式預算方式，讓各區居民提案並票選社區空間改善項目；重大建設的審議會議原則公開，但涉及個資或商業機密部分例外。",stances:["有條件"],goal:"每年參與式預算 2 億元，38 區皆辦理"},
+    Q8:{text:"工程延誤常因前期調查不足。我們將強化地質、管線等前期調查預算，並要求重大工程每月公開進度；設計變更超過一定比例須提報說明。",stances:["是"],goal:"1 億元以上工程每月公開進度"},
+    Q9:{text:"同意不應以最低價決標，但也要防止綁標。我們支持依物價合理編列預算，重大公共建築採公開評選並公開紀錄；評選委員應有一定比例外部專業者。",stances:["是","是"],goal:"外部專業評選委員比例不低於 2/3"},
+    Q10:{text:"建議改革「公共工程履約爭議」處理方式，設立市府層級的工程爭議調解小組，縮短爭議期程，減少工程停擺。",goal:"2027 年成立工程爭議調解小組"}}},
+  {id:"d6", example:true, name:"範例參選人己", city:"高雄市", party:"無", status:"done", version:1, submittedAt:"2026-11-05",
+   answers:{
+    Q1:{text:"優先處理騎樓與人行道的機車停放問題，增設機車停車格，讓人行空間回歸行人。",goal:"增設機車停車格 10,000 格"},
+    Q2:{text:"推動學校與公園的透水鋪面改造，並加強下水道清淤。",goal:"透水鋪面 30 萬平方公尺"},
+    Q3:{text:"居住重點放在青年首購與租金補貼，社會住宅依需求逐步增加。",goal:"青年租金補貼 30,000 戶"},
+    Q4:{text:"支持危老重建加速，提供容積獎勵與行政協助；老屋保存應尊重屋主意願。",stances:["否"],goal:"危老重建核准 500 案"},
+    Q5:{text:"公共建築應減少蚊子館，新建前須有明確的營運計畫與使用單位。",goal:""},
+    Q6:{text:"設立公共設施維護專責單位，統一管理分散在各局處的設施維護。",goal:"2028 年成立公共設施維護處"},
+    Q7:{text:"重大建設會辦理說明會並在網路公開資料；審議會議是否直播，視議題性質決定。",stances:["有條件"],goal:""},
+    Q8:{text:"公開工程進度是基本，延誤原因應明確究責。",stances:["是"],goal:"全部公共工程進度上網"},
+    Q9:{text:"預算要合理，但也要兼顧財政紀律；評選制度應公開透明。",stances:["有條件","是"],goal:""},
+    Q10:{text:"優先簡化建照與使照申請流程，全面數位化。",goal:"2028 年建照、使照全面線上申辦"}}},
+  {id:"d7", example:true, name:"範例參選人庚", city:"高雄市", party:"範例新黨", status:"done", version:1, submittedAt:"2026-11-06",
+   links:{paper:"https://example.org/policy"}, answers:{
+    Q1:{text:"以「15 分鐘生活圈」為目標，讓住家到學校、市場、公車站都能安全步行抵達。人行道新設與拓寬納入每年道路預算固定比例，並公開各區步行環境評分，讓市民監督。",goal:"每年道路預算 20% 用於人行環境；人行道新設拓寬 100 公里"},
+    Q2:{text:"建立高雄市熱島與淹水風險地圖，依風險排序投資；公有建築屋頂優先綠化與設置太陽能。",goal:"公有建築屋頂綠化或光電 300 棟"},
+    Q3:{text:"社宅應分散在各區，避免集中造成標籤化；並保留一定比例給在地工作者與學生。",goal:"社會住宅 6,000 戶，分布 20 個行政區以上"},
+    Q4:{text:"支持建立老建築公開價值評估程序，並設立老屋修繕基金，協助屋主整建維護。",stances:["是"],goal:"老屋修繕基金每年 3 億元"},
+    Q5:{text:"公共建築啟用後的使用評估應由第三方執行，並納入設計單位的履約評價。",goal:"使用後評估 30 處"},
+    Q6:{text:"維護經費以設施造價固定比例逐年編列，避免完工即開始老化卻無人管理。",goal:"維護經費不低於造價 2%／年"},
+    Q7:{text:"都市計畫與都市設計審議會議全程直播，委員發言逐字公開。",stances:["是"],goal:"2027 年起全面直播"},
+    Q8:{text:"建立工程履歷制度，從規劃、設計、施工到維護全部紀錄並公開。",stances:["是"],goal:"2028 年工程履歷平台上線"},
+    Q9:{text:"支持合理編列設計監造經費，並推動重大公共建築公開競圖，讓更多中小型與年輕事務所有機會參與。",stances:["是","是"],goal:"每年至少 5 案公開競圖"},
+    Q10:{text:"改革都市設計審議制度，明確審議範圍與標準，避免審議變成無止盡的修改。",goal:"2027 年公告都審標準作業程序"}}},
+  {id:"d8", example:true, name:"範例參選人辛", city:"高雄市", party:"無", status:"part", version:1, submittedAt:"2026-11-08",
+   answers:{
+    Q1:{text:"改善路口號誌，增加行人專用時相。",goal:"行人專用時相路口 200 處"},
+    Q3:{text:"擴大租金補貼，簡化申請程序。",goal:""},
+    Q4:{text:"老屋問題以安全為優先。",stances:["有條件"],goal:""},
+    Q8:{text:"工程資訊應公開透明。",stances:["是"],goal:""},
+    Q9:{text:"支持合理編列預算。",stances:["是","有條件"],goal:""},
+    Q10:{text:"簡化行政流程，提升市府效率。",goal:""}}},
+  {id:"d3", example:true, name:"範例參選人丙", city:"臺北市", party:"無", status:"none", answers:{}}
+]};
+
+
+const ROSTER = [["郭璽","臺北市","台灣麻將最大黨"],["沈伯洋","臺北市","民主進步黨"],["蕭文乾","臺北市","臺灣SoR無法黨"],["唐新民","臺北市","三勢團結促進聯盟"],["蔣萬安","臺北市","中國國民黨"],["林志成","臺北市","無"],["蘇巧慧","新北市","民主進步黨"],["李四川","新北市","中國國民黨"],["蘇輝湟","新北市","無"],["張善政","桃園市","中國國民黨"],["黃世杰","桃園市","民主進步黨"],["何欣純","臺中市","民主進步黨"],["江啟臣","臺中市","中國國民黨"],["洪麗華","臺中市","司法正義黨"],["謝龍介","臺南市","中國國民黨"],["蕭燐洪","臺南市","臺灣SoR無法黨"],["葉人文","臺南市","無"],["陳亭妃","臺南市","民主進步黨"],["張靜","高雄市","司法改革黨"],["賴瑞隆","高雄市","民主進步黨"],["王肇民","高雄市","無"],["柯志恩","高雄市","中國國民黨"],["洪方隆","高雄市","無"],["謝國樑","基隆市","中國國民黨"],["魏造文","基隆市","無"],["童子瑋","基隆市","民主進步黨"],["高虹安","新竹市","無"],["莊競程","新竹市","民主進步黨"],["何志勇","新竹市","無"],["黃宏成台灣阿成世界偉人財神總統","嘉義市","無"],["陳愷璜","嘉義市","無"],["張啓楷","嘉義市","台灣民眾黨"],["王美惠","嘉義市","民主進步黨"],["王義成","嘉義市","無"],["鄭朝方","新竹縣","民主進步黨"],["朱定瑀","新竹縣","無"],["徐欣瑩","新竹縣","中國國民黨"],["陳品安","苗栗縣","民主進步黨"],["鍾東錦","苗栗縣","中國國民黨"],["陳重嘉","彰化縣","無"],["陳素月","彰化縣","民主進步黨"],["邱建富","彰化縣","無"],["魏平政","彰化縣","中國國民黨"],["温世政","南投縣","民主進步黨"],["許淑華","南投縣","中國國民黨"],["吳炳輝","雲林縣","無"],["張嘉郡","雲林縣","中國國民黨"],["劉建國","雲林縣","民主進步黨"],["林佳瑜","雲林縣","無"],["吳品叡","嘉義縣","無"],["蔡易餘","嘉義縣","民主進步黨"],["蘇清泉","屏東縣","中國國民黨"],["周春米","屏東縣","民主進步黨"],["陳宏毅","宜蘭縣","無"],["吳宗憲","宜蘭縣","中國國民黨"],["劉燦輝","宜蘭縣","無"],["林國漳","宜蘭縣","民主進步黨"],["楊鉯婷","宜蘭縣","無"],["游淑貞","花蓮縣","中國國民黨"],["張峻","花蓮縣","無"],["魏嘉賢","花蓮縣","無"],["羅佩秦","花蓮縣","台灣工黨"],["陳瑩","臺東縣","民主進步黨"],["吳秀華","臺東縣","中國國民黨"],["李吳穎智","臺東縣","無"],["王志偉","臺東縣","無"],["吳淑瑾","澎湖縣","民主進步黨"],["陳振中","澎湖縣","中國國民黨"],["周倪安","澎湖縣","台聯黨"],["許智富","澎湖縣","無"],["陳盡川","澎湖縣","無"],["葉竹林","澎湖縣","無"],["洪和成","金門縣","無"],["李文良","金門縣","無"],["黃世團","金門縣","無"],["陳玉珍","金門縣","中國國民黨"],["張國威","金門縣","無"],["梁文韜","金門縣","無"],["張火木","金門縣","無"],["王忠銘","連江縣","中國國民黨"],["曹爾元","連江縣","無"]]; /* [姓名,縣市,政黨] 依中選會 2026-10-16 審定公告 */
+
+const TWMAP=[{"n":"宜蘭縣","d":"M404,114L404.5,115L402.5,115L401,113.5L402,114L402.5,113ZM405,94.5L404,94.5L400,96.5L398.5,99L397,99.5L397,100.5L396,100.5L395,101.5L394.5,103.5L391.5,107L390.5,107.5L388,113L387,116L386.5,120.5L386,125L386.5,127.5L387.5,130.5L388.5,131.5L388.5,132.5L388.5,137.5L389.5,141.5L391.5,145.5L392.5,146.5L394.5,147.5L393,148.5L394,149L393,150L394,150.5L392.5,151L393,157L392.5,158L389,159L388.5,161L389,162L390.5,162.5L390.5,164L391.5,164L389,165L386.5,167L386.5,168L384,171L383,174.5L382.5,179.5L380.5,183.5L380,185L380.5,187.5L378.5,187.5L377,186.5L373,186L371,184.5L370,185L369.5,184L368,184.5L366.5,182.5L365,182.5L362.5,179.5L361.5,180.5L361.5,181.5L362.5,183.5L363,184.5L361,183.5L360.5,185L359.5,184.5L358,185.5L359.5,187.5L357.5,187.5L353.5,186.5L353,185L351,184.5L346.5,183.5L346,184L344,183L341.5,182L340,180.5L339.5,179L339,179.5L338,178L334.5,178.5L333.5,178.5L331,180L330,180L329,177L327.5,176.5L325.5,177L324.5,176L324.5,171L323,170L324,168L325.5,166.5L326,164.5L328,163.5L329.5,162L330,160.5L331.5,160.5L332.5,158.5L333.5,157.5L332.5,154L334,152L335,151.5L334,149L335,147.5L337,147L338,144.5L340,141L339.5,139L341,137.5L343.5,137.5L345,137.5L347.5,136L349,136.5L350.5,135.5L351.5,133L355,132L355.5,132.5L356,131L357,131L358.5,130L357.5,127L358.5,124L357.5,122L360,121L362,121L362,119L364,119L364.5,118L366.5,118.5L367.5,117.5L368,118L370,117.5L369.5,116.5L374,113L375.5,112.5L376.5,113L379,112L380,111L381,111L382,109.5L381.5,107.5L385.5,105L386,106L388,105.5L390.5,103L390,101L389,100.5L389,98.5L390,97.5L391.5,97.5L393,97.5L395,97.5L397,96L401.5,94.5L402,94L404.5,94Z","c":[364,152]},{"n":"彰化縣","d":"M214,202.5L220.5,204.5L220.5,205L223,210L222.5,211.5L224,213.5L226,215.5L229,216L234,217L234.5,219.5L235.5,221.5L235.5,223.5L236,225.5L235.5,227L237,226.5L238,227.5L238,226.5L239.5,227L242.5,229L241.5,230L237.5,230L237,232L238.5,233L238.5,236L237,237.5L236,237.5L237,239.5L236,240.5L237,241.5L236,243.5L237,245L235,249.5L236,250.5L234.5,253L237.5,255L237.5,256L238.5,257L242,256L243,258.5L241,259.5L237.5,260.5L234,260L231.5,260L226,258.5L223,259L221,258.5L217.5,257.5L213.5,256.5L211.5,254.5L208.5,255L203.5,254.5L202,255.5L195.5,256L189,254L186.5,252L184.5,249.5L186.5,247L188,246.5L189,245L189,244L190.5,240.5L192,240L192.5,237L195.5,234.5L195.5,233L196.5,231L199,229L199.5,225.5L200,222.5L201,221L202.5,220L205,219L205,217.5L206.5,215L207,212.5L208,211.5L209,209L209,207.5L210,205.5L212.5,205Z","c":[216,236]},{"n":"南投縣","d":"M237.5,260.5L241,259.5L243,258.5L242,256L238.5,257L237.5,256L237.5,255L234.5,253L236,250.5L235,249.5L237,245L236,243.5L237,241.5L236,240.5L237,239.5L236,237.5L237,237.5L238.5,236L238.5,233L237,232L237.5,230L241.5,230L242.5,229L246,230.5L247.5,229.5L249,230L251,231L252.5,230L254,230L254,229L255.5,227.5L258,223.5L258.5,222L261.5,221L261,218L262,215L263.5,214L264.5,214L265,215L266.5,215L268,217L267.5,219.5L269,217.5L269,215L271,215L272.5,216L274.5,215.5L276.5,213.5L278,214.5L279.5,215L282,214.5L282.5,213.5L284,211L285.5,209L286.5,209L287,210.5L287.5,209L289,209L289.5,209.5L294.5,205.5L295,204.5L296,203.5L300,204L301.5,201.5L303,201L304,200L305.5,201.5L307.5,200L309,200.5L310.5,199.5L313,200.5L313.5,200L315,197.5L316.5,197L317,198L318,199L320,199.5L320.5,198.5L324,199L326,200L327,203.5L324,204L323,205.5L321.5,206L319,206.5L319,209.5L318.5,212L320,212.5L323,215L324.5,215L324,217L323,218L323.5,219.5L322,221L320.5,222.5L320,222L318.5,223.5L319,225.5L318,227.5L317,230L315.5,232L316.5,234.5L317.5,234.5L318,235.5L317,239.5L318,241.5L317.5,244L316,244.5L316.5,245L316.5,247L316.5,248.5L315,249.5L314.5,251.5L313,253L312.5,257L311.5,257.5L311.5,260.5L308.5,262.5L309,264L312.5,266L312,266.5L313.5,271L313,274.5L312,275.5L312.5,278L311,281L311,282.5L310,286L309,287L307.5,286L305.5,287.5L305.5,288.5L302,288L302,290L303,290.5L302.5,292L301.5,292.5L302,293.5L301.5,295.5L302,296L300,298L298,297L294.5,298L291.5,297.5L290.5,300L289.5,301L289.5,301.5L288,303.5L290.5,305.5L289.5,307L287,307.5L285,309L284,307.5L285,306.5L284,305L283,305L279,304L277.5,304L276,304.5L275,303.5L274,304L272.5,303.5L268.5,303.5L268,304.5L265.5,303.5L262.5,304L261,302.5L260.5,298.5L258.5,295L258.5,293.5L260,291.5L260,289.5L261,288L259.5,286L258,286.5L255,286L253,284.5L249,285L249,283.5L247.5,282L246.5,283.5L245.5,284L244,283.5L243,284.5L240,285L239,284L239,282.5L238,282L237,283.5L236,281.5L237,279L238,276L238.5,275L237.5,271L237.5,269L238,267.5L239.5,267.5L239.5,265Z","c":[281,253]},{"n":"雲林縣","d":"M167,296.5L168,297L168.5,298.5L167,298.5L165.5,301L163.5,301L164.5,302L164.5,302.5L163.5,301.5L162.5,303L162,302L160.5,303L159.5,304L159.5,305.5L157.5,305.5L159,307.5L159,309L157,305.5L156,304.5L158.5,302ZM169,294.5L170,295L168.5,297L168,295.5ZM173.5,293.5L174,294L172.5,295.5ZM173.5,291.5L171,293.5L169.5,294L170.5,292.5L172,292.5ZM173,290.5L173,290.5L173,290.5ZM184.5,249.5L186.5,252L189,254L195.5,256L202,255.5L203.5,254.5L208.5,255L211.5,254.5L213.5,256.5L217.5,257.5L221,258.5L223,259L226,258.5L231.5,260L234,260L237.5,260.5L239.5,265L239.5,267.5L238,267.5L237.5,269L237.5,271L238.5,275L238,276L237,279L236,281.5L237,283.5L238,282L239,282.5L239,284L240,285L243,284.5L244,283.5L245.5,284L246.5,283.5L247.5,282L249,283.5L249,285L248,285.5L249,286.5L249,289.5L249.5,290.5L247,290.5L246,289.5L244,289.5L242,290.5L241.5,289L239,290L238,289L238.5,288.5L238,287L235.5,287.5L233.5,288.5L231,288L229.5,288.5L227,287L224.5,287L222,284.5L220.5,282.5L220,281.5L218,282L217,281.5L214.5,282L212.5,282L211,283.5L207.5,282.5L205.5,283.5L204.5,285L203,285L202,287L198.5,287.5L198.5,289L197,290L195.5,290L196,291L193,291.5L193.5,293L191.5,294L191,296L190,295.5L189,293.5L187,294.5L188,298L187,299L184.5,299.5L182.5,298.5L179.5,298.5L177.5,297.5L175,297L175.5,295.5L174,293L174.5,290L174,283.5L174,282L172,283L171,281L172,280.5L173.5,277L174,274.5L175,273.5L175,271.5L176,270L177.5,266.5L178,264.5L176.5,261L179.5,257.5L179.5,256.5L181,256L183,253.5L182.5,252L183.5,251.5Z","c":[204,274]},{"n":"基隆市","d":"M384.5,73L384,75L383,74.5L383.5,76.5L382.5,76.5L380.5,75.5L378.5,77L379,78L378.5,80.5L381,82.5L379,84.5L375.5,85L373,82.5L371,83L365.5,79L365,78L364,74.5L362.5,73.5L362,72.5L366,71L368.5,70.5L370,69L371,69L372.5,67.5L372,69L374.5,69L377.5,70.5L379,69.5L381.5,70L380.5,70.5L383,71.5L385,71.5ZM382.5,65L382.5,65L382.5,65Z","c":[374,76]},{"n":"臺北市","d":"M355,64.5L356.5,65L356.5,67.5L356,69L357.5,69.5L357.5,71L359,73L359,74L358,76.5L362,79L362.5,80L360.5,83.5L361.5,84.5L360.5,85L362,87L365,88.5L367,88L366.5,89L364.5,89L362.5,89L361.5,90L360,89.5L358.5,90L358,91.5L359,93.5L358.5,95.5L361,96.5L358.5,97.5L356,97L353.5,97L353,94.5L350,93.5L350.5,91.5L348.5,89.5L347,89L345.5,91L344.5,90L344,87.5L344.5,86.5L346,86L347,84.5L347,82.5L346.5,80.5L344.5,78.5L342,78L340.5,77.5L341,75L344,71.5L344.5,71L346.5,68L348.5,68.5L349,67.5L351.5,66L352.5,64.5L353,63L354,63Z","c":[353,81]},{"n":"新北市","d":"M405,94.5L404.5,94L402,94L401.5,94.5L397,96L395,97.5L393,97.5L391.5,97.5L390,97.5L389,98.5L389,100.5L390,101L390.5,103L388,105.5L386,106L385.5,105L381.5,107.5L382,109.5L381,111L380,111L379,112L376.5,113L375.5,112.5L374,113L369.5,116.5L370,117.5L368,118L367.5,117.5L366.5,118.5L364.5,118L364,119L362,119L362,121L360,121L357.5,122L358.5,124L357.5,127L358.5,130L357,131L356,131L355.5,132.5L355,132L351.5,133L350.5,135.5L349,136.5L347.5,136L345,137.5L343.5,137.5L342.5,135.5L343,134.5L339.5,133L338,129.5L336.5,125L339.5,122L338,120.5L338,118.5L336.5,116.5L335.5,116.5L335.5,115L333.5,114L332.5,114L330.5,115.5L328,114.5L325.5,113.5L327.5,113L328,112.5L326.5,110.5L327.5,110L326.5,109L326,107L325,107.5L323.5,106L324,105L323,104L325,102L323.5,102L322.5,101L324.5,100L324.5,99.5L324,95.5L326,94.5L329.5,95.5L331.5,94L331.5,93L332.5,93L334,92.5L332.5,90L335,89.5L333,88L333.5,86L332.5,83.5L330.5,83L327.5,83L326.5,82L327,81L325.5,80.5L324,79.5L321,78.5L320.5,77.5L319.5,78L318.5,77L318.5,76L322,74.5L323.5,75L327.5,74L332,71.5L332.5,69L333.5,70L336,67.5L334,66.5L334,65.5L336,65.5L336,64.5L337.5,62L338,61.5L340,57L342.5,56.5L343.5,54.5L347,52.5L347.5,51.5L348,52.5L350,52L350.5,50.5L351,51L353.5,51.5L356,50.5L358.5,51.5L359.5,53L361.5,54L363,56L363,58.5L364,60L365.5,59.5L365,61L365.5,62.5L367.5,64L369.5,63.5L371,62.5L371,64L369.5,66L370.5,67L372.5,67.5L371,69L370,69L368.5,70.5L366,71L362,72.5L362.5,73.5L364,74.5L365,78L365.5,79L371,83L373,82.5L375.5,85L379,84.5L381,82.5L378.5,80.5L379,78L378.5,77L380.5,75.5L382.5,76.5L383.5,76.5L383,74.5L384,75L384.5,73L385,73.5L387.5,73.5L386.5,74L386.5,75.5L387.5,74.5L389,74.5L392.5,75L393.5,74.5L395.5,75.5L400,74.5L398.5,76L400,77L399,78L398.5,79.5L398.5,81.5L400,82.5L400.5,83.5L400.5,86.5L402.5,89.5L406,88.5L408,89.5L408,90.5L409,89.5L410,90.5L410,92L408.5,92L407,93.5ZM355,64.5L354,63L353,63L352.5,64.5L351.5,66L349,67.5L348.5,68.5L346.5,68L344.5,71L344,71.5L341,75L340.5,77.5L342,78L344.5,78.5L346.5,80.5L347,82.5L347,84.5L346,86L344.5,86.5L344,87.5L344.5,90L345.5,91L347,89L348.5,89.5L350.5,91.5L350,93.5L353,94.5L353.5,97L356,97L358.5,97.5L361,96.5L358.5,95.5L359,93.5L358,91.5L358.5,90L360,89.5L361.5,90L362.5,89L364.5,89L366.5,89L367,88L365,88.5L362,87L360.5,85L361.5,84.5L360.5,83.5L362.5,80L362,79L358,76.5L359,74L359,73L357.5,71L357.5,69.5L356,69L356.5,67.5L356.5,65Z","c":[358,94]},{"n":"臺中市","d":"M323,170L324.5,171L324.5,176L325.5,177L327.5,176.5L329,177L330,180L331,180L333.5,178.5L334.5,178.5L338,178L339,179.5L339.5,179L340,180.5L338.5,181.5L338,183L337.5,185.5L338,186.5L336,188.5L334,188.5L333.5,190L331,192.5L331.5,195.5L329,196L328.5,197.5L327.5,197.5L327.5,198.5L326,200L324,199L320.5,198.5L320,199.5L318,199L317,198L316.5,197L315,197.5L313.5,200L313,200.5L310.5,199.5L309,200.5L307.5,200L305.5,201.5L304,200L303,201L301.5,201.5L300,204L296,203.5L295,204.5L294.5,205.5L289.5,209.5L289,209L287.5,209L287,210.5L286.5,209L285.5,209L284,211L282.5,213.5L282,214.5L279.5,215L278,214.5L276.5,213.5L274.5,215.5L272.5,216L271,215L269,215L269,217.5L267.5,219.5L268,217L266.5,215L265,215L264.5,214L263.5,214L262,215L261,218L261.5,221L258.5,222L258,223.5L255.5,227.5L254,229L254,230L252.5,230L251,231L249,230L247.5,229.5L246,230.5L242.5,229L239.5,227L238,226.5L238,227.5L237,226.5L235.5,227L236,225.5L235.5,223.5L235.5,221.5L234.5,219.5L234,217L229,216L226,215.5L224,213.5L222.5,211.5L223,210L220.5,205L220.5,204.5L214,202.5L216,201.5L216.5,200L218.5,195.5L219,194L219.5,194.5L221,190.5L222,189.5L222.5,187.5L224,186.5L225,184.5L225.5,184.5L227,182.5L227.5,181L231,175.5L232,174.5L235,170L237.5,172L238.5,174.5L240.5,175.5L244,180L246,181.5L249,182.5L252.5,185.5L255.5,187L258.5,187.5L260,188.5L262,191L265,191L267,190L271,190.5L273,189L272.5,185L274.5,183.5L277.5,184L278,184.5L280.5,184.5L281.5,185.5L283.5,185L285,188L287.5,190L289.5,189.5L290,188L293,186L294,187L296.5,185L298,185L298.5,183.5L300.5,181L304,181L304.5,179.5L307,178L308,176L309,176L310,178.5L312,178L312.5,176L313.5,175L313.5,173L315.5,172L315.5,170.5L316,171.5L321.5,171Z","c":[269,198]},{"n":"臺南市","d":"M239,338L239.5,339L238,341L237,342.5L237.5,343.5L235,346L234.5,346.5L234,348L232.5,349L231,352L231,353L229,356L229,356L226.5,359.5L224.5,360.5L220,365L217.5,366.5L217,368.5L215,368L214.5,370L214,370L214,372L213,371.5L211,375L210.5,377L209,380L208.5,380.5L207,379.5L205,379.5L203.5,381L202,382.5L201.5,384L198.5,384L197.5,382.5L196.5,382.5L191.5,382L192,383L189.5,382L188.5,383.5L187,382L186,381.5L186,380.5L184.5,381L181,379.5L178.5,381L178.5,378L178.5,375.5L177,373.5L176,373.5L176.5,372L174,369L170.5,366L167.5,364.5L164.5,362.5L164,363L161.5,359.5L160,359.5L160,358.5L161,354.5L162,352.5L163,351.5L164.5,345.5L166.5,341L167,338L166.5,336L168,334.5L168.5,332.5L168.5,327.5L170.5,326L170.5,323L171.5,322L175.5,325L175.5,325.5L177.5,326.5L178.5,328.5L180.5,329L180.5,327.5L182.5,328.5L184.5,328L186.5,324L189,323.5L190.5,322L189.5,321.5L190,320.5L191.5,321L192.5,320.5L192.5,318.5L193.5,317L196,317L196,316L198.5,315.5L200.5,313.5L204.5,313.5L209,312.5L209.5,313.5L212,312L216.5,314L217,315.5L218.5,314.5L219.5,315.5L217.5,316.5L218,317.5L221,318.5L221.5,320L220,320.5L220.5,321.5L221.5,321.5L224,322.5L225,323.5L222.5,326L223,328.5L222.5,329L222.5,331L224,333.5L223.5,334.5L222,336L223,337L225,337.5L226.5,339L228,338.5L229.5,339.5L230.5,338L231.5,336L232,337.5L233.5,338L236,337Z","c":[198,348]},{"n":"桃園市","d":"M343.5,137.5L341,137.5L339.5,139L340,141L338,144.5L337,147L335,147.5L334,149L332,150L330,148.5L328.5,147.5L328,145.5L329,143.5L328,143L327.5,142L327.5,138.5L326,138.5L325.5,137L324.5,135L323,134.5L321,135L320.5,134.5L321.5,131L320.5,129.5L321.5,126.5L321,125L318,124L315.5,122.5L316,121.5L314,120.5L313.5,119L311,120L310.5,118.5L309,119L309,118.5L306,116.5L305,115.5L302,114L303,112L302.5,109L300.5,108.5L300,109L296.5,108L296.5,106.5L294.5,107L293.5,106.5L292,106L290,105.5L290.5,103.5L290,101L287.5,99.5L285.5,100.5L284,99.5L282,101.5L280.5,100.5L284,95.5L284,93.5L285,93L285.5,91L286.5,89.5L289.5,86L294,84.5L294,83.5L298.5,81.5L302.5,80.5L306,79L309.5,77L313,76L315.5,75L318.5,76L318.5,77L319.5,78L320.5,77.5L321,78.5L324,79.5L325.5,80.5L327,81L326.5,82L327.5,83L330.5,83L332.5,83.5L333.5,86L333,88L335,89.5L332.5,90L334,92.5L332.5,93L331.5,93L331.5,94L329.5,95.5L326,94.5L324,95.5L324.5,99.5L324.5,100L322.5,101L323.5,102L325,102L323,104L324,105L323.5,106L325,107.5L326,107L326.5,109L327.5,110L326.5,110.5L328,112.5L327.5,113L325.5,113.5L328,114.5L330.5,115.5L332.5,114L333.5,114L335.5,115L335.5,116.5L336.5,116.5L338,118.5L338,120.5L339.5,122L336.5,125L338,129.5L339.5,133L343,134.5L342.5,135.5Z","c":[315,106]},{"n":"苗栗縣","d":"M315.5,170.5L315.5,172L313.5,173L313.5,175L312.5,176L312,178L310,178.5L309,176L308,176L307,178L304.5,179.5L304,181L300.5,181L298.5,183.5L298,185L296.5,185L294,187L293,186L290,188L289.5,189.5L287.5,190L285,188L283.5,185L281.5,185.5L280.5,184.5L278,184.5L277.5,184L274.5,183.5L272.5,185L273,189L271,190.5L267,190L265,191L262,191L260,188.5L258.5,187.5L255.5,187L252.5,185.5L249,182.5L246,181.5L244,180L240.5,175.5L238.5,174.5L237.5,172L235,170L240.5,164L241,162L243,159L244,155L245,153L246,149L247,147.5L249,146.5L250,145L251,145L252,143.5L252.5,142L254.5,139.5L256,138.5L260.5,138L264.5,133.5L265.5,131L267,128.5L268,129.5L270,129.5L271,128.5L272.5,131L272,131.5L274.5,132L275.5,133L276.5,132.5L277,133.5L278,132.5L279.5,132.5L280,133L278.5,136.5L279.5,136L280,137.5L282.5,140.5L284,140L284,141.5L286,142L286.5,143.5L288.5,144L289.5,145.5L290.5,145L292,146L293,148L293.5,149.5L292.5,150.5L292,153L291,154L293,156L292.5,158L291.5,158.5L292,162L293.5,161.5L295,162.5L298.5,160.5L300,161L301,160L304,161.5L305.5,160.5L306.5,161L308,160L310.5,160L311,160.5L310.5,162L312.5,163.5L313.5,166L315.5,167L316,168Z","c":[273,164]},{"n":"嘉義市","d":"M213,297.5L214,298L215,300L216.5,299L218,300L218.5,301L219.5,301.5L220,302.5L221,303.5L219.5,305L219,306.5L218.5,306.5L217,305.5L216,305.5L214,307.5L212,308.5L211,305.5L209,305.5L208.5,305L206.5,305L207,303L205.5,300L208,299L208,300L209,299.5L211.5,299L211.5,297.5Z","c":[213,303]},{"n":"嘉義縣","d":"M175.5,315L175.5,315L175.5,315ZM249,285L253,284.5L255,286L258,286.5L259.5,286L261,288L260,289.5L260,291.5L258.5,293.5L258.5,295L260.5,298.5L261,302.5L262.5,304L265.5,303.5L268,304.5L268.5,303.5L272.5,303.5L274,304L275,303.5L276,304.5L277.5,304L275,305L274,306L272,305.5L269,307.5L268.5,309L267,309.5L265.5,310.5L264,311L264,312L261.5,315.5L261,317L258,318.5L256,320.5L255.5,321.5L252.5,321.5L252.5,322.5L251,324.5L249,325.5L249,327L246.5,326.5L245.5,327.5L245,329.5L241.5,329L238,328L237.5,329.5L238,331L237,332L238.5,335L239,338L236,337L233.5,338L232,337.5L231.5,336L230.5,338L229.5,339.5L228,338.5L226.5,339L225,337.5L223,337L222,336L223.5,334.5L224,333.5L222.5,331L222.5,329L223,328.5L222.5,326L225,323.5L224,322.5L221.5,321.5L220.5,321.5L220,320.5L221.5,320L221,318.5L218,317.5L217.5,316.5L219.5,315.5L218.5,314.5L217,315.5L216.5,314L212,312L209.5,313.5L209,312.5L204.5,313.5L200.5,313.5L198.5,315.5L196,316L196,317L193.5,317L192.5,318.5L192.5,320.5L191.5,321L190,320.5L189.5,321.5L190.5,322L189,323.5L186.5,324L184.5,328L182.5,328.5L180.5,327.5L180.5,329L178.5,328.5L177.5,326.5L175.5,325.5L175.5,325L171.5,322L172.5,319L173,316L176.5,316L177,314.5L177,313L175.5,314L175.5,311.5L175.5,310L175,310L176,307L175.5,306L173.5,306.5L175,305.5L175,304L176,302L176.5,300.5L173.5,301.5L171.5,300.5L171.5,298L172.5,297L174.5,297.5L175,297L177.5,297.5L179.5,298.5L182.5,298.5L184.5,299.5L187,299L188,298L187,294.5L189,293.5L190,295.5L191,296L191.5,294L193.5,293L193,291.5L196,291L195.5,290L197,290L198.5,289L198.5,287.5L202,287L203,285L204.5,285L205.5,283.5L207.5,282.5L211,283.5L212.5,282L214.5,282L217,281.5L218,282L220,281.5L220.5,282.5L222,284.5L224.5,287L227,287L229.5,288.5L231,288L233.5,288.5L235.5,287.5L238,287L238.5,288.5L238,289L239,290L241.5,289L242,290.5L244,289.5L246,289.5L247,290.5L249.5,290.5L249,289.5L249,286.5L248,285.5ZM213,297.5L211.5,297.5L211.5,299L209,299.5L208,300L208,299L205.5,300L207,303L206.5,305L208.5,305L209,305.5L211,305.5L212,308.5L214,307.5L216,305.5L217,305.5L218.5,306.5L219,306.5L219.5,305L221,303.5L220,302.5L219.5,301.5L218.5,301L218,300L216.5,299L215,300L214,298Z","c":[222,307]},{"n":"高雄市","d":"M277.5,304L279,304L283,305L284,305L285,306.5L284,307.5L285,309L284.5,309.5L286.5,310.5L286,313L284.5,314.5L283,315L284,316L283,316L281.5,318L281,319.5L283,320L284,321L285.5,320.5L286,322L289,324L288.5,326.5L287,327L286.5,328L284,328.5L281,330L279,330L275,335L273.5,335L272,336L271.5,337.5L271.5,340L271,341.5L272,343L271.5,344L270,344.5L269.5,346.5L267.5,348L268.5,349L268.5,350L268.5,352.5L269,355L268,357.5L266.5,360.5L268,362.5L267.5,364L265.5,364.5L265.5,367.5L263,370L263,371L261.5,371.5L261.5,373L260,374L260.5,375.5L260.5,377.5L262,381L261,382L262.5,384.5L266,386.5L265,387.5L266.5,388L266,390.5L264.5,388.5L263.5,389L262,387L260.5,387L257.5,389L257,389L256.5,390.5L255,391.5L253,389.5L253,388.5L250.5,386L247.5,385L246,385L244,387L242.5,387.5L242,388.5L240,388L239.5,385.5L238.5,385.5L238,384.5L235,386L233,386L229,389.5L226.5,392L224.5,392L223.5,391.5L221,392.5L219,391.5L216.5,391L216,392L215,396L214.5,398L214,402L214,407.5L213,411.5L212,413L211.5,414.5L211.5,419.5L211.5,421L213,423.5L213,425.5L212.5,428.5L211.5,430.5L211,431L210,434.5L210.5,437.5L210,441.5L207.5,441L203.5,438.5L198.5,434.5L198.5,433.5L196,435L193.5,432L195.5,432.5L196.5,434L197,433.5L195.5,431L194.5,430.5L195,429.5L190,423.5L190,422L189,421L190,420.5L188,416.5L188.5,415L190,413.5L189.5,410L189,407.5L188,406L183.5,395L181.5,395.5L180.5,394L182.5,393.5L181.5,390L180.5,388L181,387.5L178.5,381L181,379.5L184.5,381L186,380.5L186,381.5L187,382L188.5,383.5L189.5,382L192,383L191.5,382L196.5,382.5L197.5,382.5L198.5,384L201.5,384L202,382.5L203.5,381L205,379.5L207,379.5L208.5,380.5L209,380L210.5,377L211,375L213,371.5L214,372L214,370L214.5,370L215,368L217,368.5L217.5,366.5L220,365L224.5,360.5L226.5,359.5L229,356L229,356L231,353L231,352L232.5,349L234,348L234.5,346.5L235,346L237.5,343.5L237,342.5L238,341L239.5,339L239,338L238.5,335L237,332L238,331L237.5,329.5L238,328L241.5,329L245,329.5L245.5,327.5L246.5,326.5L249,327L249,325.5L251,324.5L252.5,322.5L252.5,321.5L255.5,321.5L256,320.5L258,318.5L261,317L261.5,315.5L264,312L264,311L265.5,310.5L267,309.5L268.5,309L269,307.5L272,305.5L274,306L275,305Z","c":[235,369]},{"n":"臺東縣","d":"M360,513L359,512L360.5,511.5ZM346.5,494L347.5,494.5L354.5,494L355,496.5L355.5,497.5L354,498L354.5,500L356,501L358,502L359,503.5L358,505L356,505L355,505L354,503L352,502L351,502L347.5,499L347,496L346,494.5ZM345,413L347.5,413L347.5,414L346,417.5L346.5,418.5L345.5,419L344,417.5L342.5,417L343,415.5L341.5,414L341.5,413L343.5,413.5ZM266,390.5L266.5,388L265,387.5L266,386.5L262.5,384.5L261,382L262,381L260.5,377.5L260.5,375.5L260,374L261.5,373L261.5,371.5L263,371L263,370L265.5,367.5L265.5,364.5L267.5,364L268,362.5L266.5,360.5L268,357.5L269,355L268.5,352.5L268.5,350L268.5,349L267.5,348L269.5,346.5L270,344.5L271.5,344L272,343L271,341.5L271.5,340L271.5,337.5L272,336L273.5,335L275,335L279,330L281,330L284,328.5L286.5,328L288,327.5L290,329L290.5,330.5L290.5,332L293,337L294.5,336.5L296.5,338L299,338L300.5,341L302.5,341.5L303,340.5L305,340L307,341L308,343L308,344.5L309.5,347.5L309.5,349L312,349.5L313,351L314.5,350.5L316.5,353L316,354.5L317.5,355.5L319,354L321,353.5L323,353.5L323.5,352.5L323.5,350L324,348L323,346L324,344.5L325,344.5L326,342L326.5,339L328,338L327.5,337L328.5,335L328.5,334L330.5,331.5L330.5,328L332,326L332,324.5L333,324.5L334.5,321L336.5,319.5L334,318.5L333.5,316L334.5,314L336,311L337.5,309.5L338.5,309L339,308L341,308.5L342.5,308L344,309.5L345.5,309L343.5,314.5L342.5,317.5L342.5,320.5L342,321.5L342,323L341,326L339.5,326.5L337,330L337,332L336,333.5L335.5,336.5L336,337.5L334.5,339.5L333,340L333,343.5L334,344L334.5,346.5L333.5,350L335,352L334.5,353L333,353L331,355.5L329.5,355.5L327.5,358L325.5,364L325.5,366L324.5,366.5L323.5,368L324,369.5L323,371.5L320,375L319,375.5L318,378L317,381L316,381.5L314,385L313,385.5L312,387.5L311.5,387L309.5,387.5L307,389.5L306.5,391.5L307,392.5L308,396.5L307.5,397.5L306,398.5L305,401.5L302.5,403.5L299,407L295.5,409L293,410L290,413L288,414L286,416L284.5,421L284,425L281,427.5L280,430L277.5,436.5L276,443L274.5,447.5L272,453L271.5,456.5L270.5,457.5L269.5,460L269.5,462.5L269,467.5L270,472L268,473.5L266,474L265,472.5L262.5,472L259.5,469.5L257.5,470.5L257.5,468L258.5,467.5L258.5,467L257,466.5L256,465.5L255,465L255,463.5L256,463.5L257,462L256.5,459.5L255.5,458.5L253.5,458L253,456.5L250.5,455.5L251.5,452L252,451L251.5,450L254,450L256.5,448.5L254.5,445L254.5,444L251.5,443L252,441L251.5,440L253,438.5L253,437L252,436L251.5,432.5L250,430L250,428L251,427.5L250.5,425L252,423.5L251.5,422L252.5,419.5L256,415L256.5,412.5L256,411L257.5,411.5L260,411L260,410.5L262.5,410L264,407.5L268,407.5L269.5,404.5L269.5,400.5L270.5,399.5L270.5,396L269,394.5L266.5,394L265.5,392.5Z","c":[288,387]},{"n":"花蓮縣","d":"M340,180.5L341.5,182L344,183L346,184L346.5,183.5L351,184.5L353,185L353.5,186.5L357.5,187.5L359.5,187.5L358,185.5L359.5,184.5L360.5,185L361,183.5L363,184.5L362.5,183.5L361.5,181.5L361.5,180.5L362.5,179.5L365,182.5L366.5,182.5L368,184.5L369.5,184L370,185L371,184.5L373,186L377,186.5L378.5,187.5L380.5,187.5L380,189L377.5,192.5L377,195L375,197L373,197.5L372,200L368,202.5L366.5,204L366,207L367,209.5L366.5,212.5L365.5,214L363,216L361,218.5L360.5,222.5L362.5,227L364,228.5L364.5,230L363.5,231.5L362,235L361.5,234L359.5,236.5L360,240L359.5,243.5L359.5,245L358.5,251L355.5,257L355,261L355.5,264L355,265.5L353.5,268.5L352.5,269.5L352,271L353,272.5L352,276L351.5,278.5L350.5,280L350,282.5L350,286.5L349.5,289.5L347.5,293L346.5,297.5L347,301L348,302L346,306L345.5,309L344,309.5L342.5,308L341,308.5L339,308L338.5,309L337.5,309.5L336,311L334.5,314L333.5,316L334,318.5L336.5,319.5L334.5,321L333,324.5L332,324.5L332,326L330.5,328L330.5,331.5L328.5,334L328.5,335L327.5,337L328,338L326.5,339L326,342L325,344.5L324,344.5L323,346L324,348L323.5,350L323.5,352.5L323,353.5L321,353.5L319,354L317.5,355.5L316,354.5L316.5,353L314.5,350.5L313,351L312,349.5L309.5,349L309.5,347.5L308,344.5L308,343L307,341L305,340L303,340.5L302.5,341.5L300.5,341L299,338L296.5,338L294.5,336.5L293,337L290.5,332L290.5,330.5L290,329L288,327.5L286.5,328L287,327L288.5,326.5L289,324L286,322L285.5,320.5L284,321L283,320L281,319.5L281.5,318L283,316L284,316L283,315L284.5,314.5L286,313L286.5,310.5L284.5,309.5L285,309L287,307.5L289.5,307L290.5,305.5L288,303.5L289.5,301.5L289.5,301L290.5,300L291.5,297.5L294.5,298L298,297L300,298L302,296L301.5,295.5L302,293.5L301.5,292.5L302.5,292L303,290.5L302,290L302,288L305.5,288.5L305.5,287.5L307.5,286L309,287L310,286L311,282.5L311,281L312.5,278L312,275.5L313,274.5L313.5,271L312,266.5L312.5,266L309,264L308.5,262.5L311.5,260.5L311.5,257.5L312.5,257L313,253L314.5,251.5L315,249.5L316.5,248.5L316.5,247L316.5,245L316,244.5L317.5,244L318,241.5L317,239.5L318,235.5L317.5,234.5L316.5,234.5L315.5,232L317,230L318,227.5L319,225.5L318.5,223.5L320,222L320.5,222.5L322,221L323.5,219.5L323,218L324,217L324.5,215L323,215L320,212.5L318.5,212L319,209.5L319,206.5L321.5,206L323,205.5L324,204L327,203.5L326,200L327.5,198.5L327.5,197.5L328.5,197.5L329,196L331.5,195.5L331,192.5L333.5,190L334,188.5L336,188.5L338,186.5L337.5,185.5L338,183L338.5,181.5Z","c":[331,265]},{"n":"澎湖縣","d":"M86,338.5L86,341L84.5,341.5L84.5,343L83,342L83.5,341L82,339.5L82.5,339ZM108,334L108,335.5L107,334ZM116,332.5L115,335L114,334.5L114.5,333ZM113.5,332.5L113.5,332.5L113.5,332.5ZM96,332.5L96,332.5L96,332.5ZM94.5,331.5L94.5,331.5L94.5,331.5ZM73,324.5L73,324.5L73,324.5ZM98,317L99,318.5L97.5,318.5L96,319L96,318.5ZM92.5,314L93.5,315.5L94.5,315L94.5,317.5L95.5,318L94.5,318.5L95,320.5L91.5,320L92.5,318.5L92.5,316.5L93,315.5ZM70.5,312L72,313L70,314ZM98.5,300.5L97,302L95,302.5L96,301ZM96,298L96,298L96,298ZM102.5,284L102.5,284L102.5,284ZM110.5,279L110.5,279L110.5,279ZM114,276.5L114.5,278L113,278ZM100.5,275.5L100.5,275.5L100.5,275.5ZM104,275.5L106,276L107.5,279L105.5,280.5L107,283.5L108,283.5L107.5,285L107.5,286L109,285L109,289L109.5,289L111,286.5L111.5,288L112.5,285L114,287.5L115,286L116,288.5L116,290L118,292.5L116,293L115.5,292L112,291.5L107.5,295L106.5,296L107.5,297.5L107,299L104.5,298.5L102.5,299L103,297.5L102,296.5L100.5,297L99.5,295L98.5,294.5L98.5,293.5L100,293.5L100.5,295L100.5,296L102.5,295.5L103,297.5L103.5,295.5L105.5,296.5L105.5,295L106.5,294.5L106,293L105,293L102.5,293.5L101.5,293L101.5,292L102.5,292.5L103.5,291.5L103,290.5L101,291.5L102,290L101,288.5L103,288.5L104,287.5L104.5,290L105.5,290.5L106,288.5L107,288.5L106.5,286L107.5,285L105.5,284L106.5,283.5L105.5,283L105.5,280.5L104,279L103.5,278L102.5,277.5L101.5,279L100.5,278.5L98.5,280.5L98.5,281.5L95.5,282.5L96.5,286L95,287.5L95.5,291L93,290.5L92,291.5L89.5,291.5L91.5,289.5L92.5,290.5L94,289L94,288L92,287L94.5,284.5L93.5,283.5L95,279.5L96,279.5L95,278.5L96.5,278.5L96,280L97.5,281L98.5,280.5L100,278.5L100.5,277ZM107.5,271L107.5,271L107.5,271ZM100,269.5L100,269.5L100,269.5ZM107.5,264.5L109,266.5L107.5,266.5L106.5,268L105.5,267.5ZM107,262L106,264.5L106,263Z","c":[103,294]},{"n":"新竹市","d":"M274.5,132L272,131.5L272.5,131L271,128.5L270,129.5L268,129.5L267,128.5L270,125L269.5,124.5L269,121L270.5,116.5L272,114.5L272.5,112.5L273.5,112.5L275.5,113L276,114.5L277,115.5L283,117L285.5,120L286,123L287,125.5L285.5,126L284.5,124L282,123L281,123.5L281,124.5L280.5,125L279,125L277,128L276,127.5L275,130Z","c":[276,122]},{"n":"新竹縣","d":"M334,149L335,151.5L334,152L332.5,154L333.5,157.5L332.5,158.5L331.5,160.5L330,160.5L329.5,162L328,163.5L326,164.5L325.5,166.5L324,168L323,170L321.5,171L316,171.5L315.5,170.5L316,168L315.5,167L313.5,166L312.5,163.5L310.5,162L311,160.5L310.5,160L308,160L306.5,161L305.5,160.5L304,161.5L301,160L300,161L298.5,160.5L295,162.5L293.5,161.5L292,162L291.5,158.5L292.5,158L293,156L291,154L292,153L292.5,150.5L293.5,149.5L293,148L292,146L290.5,145L289.5,145.5L288.5,144L286.5,143.5L286,142L284,141.5L284,140L282.5,140.5L280,137.5L279.5,136L278.5,136.5L280,133L279.5,132.5L278,132.5L277,133.5L276.5,132.5L275.5,133L274.5,132L275,130L276,127.5L277,128L279,125L280.5,125L281,124.5L281,123.5L282,123L284.5,124L285.5,126L287,125.5L286,123L285.5,120L283,117L277,115.5L276,114.5L275.5,113L273.5,112.5L275,110.5L277,107L277.5,106L279,102L280.5,100.5L282,101.5L284,99.5L285.5,100.5L287.5,99.5L290,101L290.5,103.5L290,105.5L292,106L293.5,106.5L294.5,107L296.5,106.5L296.5,108L300,109L300.5,108.5L302.5,109L303,112L302,114L305,115.5L306,116.5L309,118.5L309,119L310.5,118.5L311,120L313.5,119L314,120.5L316,121.5L315.5,122.5L318,124L321,125L321.5,126.5L320.5,129.5L321.5,131L320.5,134.5L321,135L323,134.5L324.5,135L325.5,137L326,138.5L327.5,138.5L327.5,142L328,143L329,143.5L328,145.5L328.5,147.5L330,148.5L332,150Z","c":[303,137]},{"n":"屏東縣","d":"M204.5,457L205.5,457.5L205.5,459L203,461L201.5,461.5L201,460.5L202.5,459L202,458.5ZM210,441.5L210.5,437.5L210,434.5L211,431L211.5,430.5L212.5,428.5L213,425.5L213,423.5L211.5,421L211.5,419.5L211.5,414.5L212,413L213,411.5L214,407.5L214,402L214.5,398L215,396L216,392L216.5,391L219,391.5L221,392.5L223.5,391.5L224.5,392L226.5,392L229,389.5L233,386L235,386L238,384.5L238.5,385.5L239.5,385.5L240,388L242,388.5L242.5,387.5L244,387L246,385L247.5,385L250.5,386L253,388.5L253,389.5L255,391.5L256.5,390.5L257,389L257.5,389L260.5,387L262,387L263.5,389L264.5,388.5L266,390.5L265.5,392.5L266.5,394L269,394.5L270.5,396L270.5,399.5L269.5,400.5L269.5,404.5L268,407.5L264,407.5L262.5,410L260,410.5L260,411L257.5,411.5L256,411L256.5,412.5L256,415L252.5,419.5L251.5,422L252,423.5L250.5,425L251,427.5L250,428L250,430L251.5,432.5L252,436L253,437L253,438.5L251.5,440L252,441L251.5,443L254.5,444L254.5,445L256.5,448.5L254,450L251.5,450L252,451L251.5,452L250.5,455.5L253,456.5L253.5,458L255.5,458.5L256.5,459.5L257,462L256,463.5L255,463.5L255,465L256,465.5L257,466.5L258.5,467L258.5,467.5L257.5,468L257.5,470.5L259.5,469.5L262.5,472L265,472.5L266,474L268,473.5L270,472L270,473.5L269.5,475L270,477.5L269,479L269.5,481.5L269.5,485L270,486.5L268.5,488L269.5,490.5L270.5,491L269.5,493.5L269.5,498.5L270.5,501L269,502L268.5,503L267.5,504L267,505.5L265.5,506.5L263.5,507L263,511L264,514.5L265.5,516.5L266,518.5L265,519.5L264,519.5L263.5,517L262.5,517L260.5,514.5L259,514.5L257,513.5L255.5,513L253,511L251.5,511.5L251,513L251,514.5L250,516.5L248.5,516.5L246.5,514.5L246.5,508L245.5,506.5L244,505L243,502L244.5,499.5L244.5,498L245.5,498L245.5,496L245,494L247,493L246,488.5L244.5,486.5L245,485L243.5,480L243,478.5L243,477L241.5,474.5L241.5,473.5L239.5,472.5L238.5,470.5L239,469L237.5,466L237.5,464.5L237,463L233,458.5L232,457L230.5,455L226,452L221,449L214.5,445.5L211.5,443L211.5,441.5Z","c":[242,439]},{"n":"連江縣","d":"M17.5,88L17.5,88.5L17,89.5L15,90.5L16,88.5ZM16.5,87.5L16.5,87.5L16.5,87.5ZM13.5,87L14,87.5L12.5,88.5L11.5,87ZM16,67L16,67L16,67ZM11,66L12,66.5L11.5,67.5L12.5,68.5L13,67L15.5,67L14.5,68.5L13,69.5L12.5,69.5L11.5,70L10,69.5L11,68ZM18.5,59.5L20,60.5L20,61.5L18.5,61L16,62L16,64L15.5,63L16,62L15.5,61L17,60.5ZM19.5,58L19.5,58L19.5,58ZM20,57.5L20,57.5L20,57.5ZM18,54.5L17.5,56L17,56L17,55ZM41,47.5L41,47.5L41,47.5ZM65.5,43.5L65.5,45L68,44.5L66.5,46.5L65.5,46L66,45L65,45.5Z","c":[21,67],"box":[4,16,70,94]},{"n":"金門縣","d":"M10,175.5L10,175.5L10,175.5ZM10.5,172L12.5,174L10.5,173.5ZM26.5,160L30,162L29,166.5L27.5,166L25,169L23,168.5L22,170L20,169L20.5,165.5L23,160.5ZM31.5,160.5L31.5,160.5L31.5,160.5ZM56,144.5L60,146L60.5,148L63,149L63,150L65.5,154L67,160L68,160.5L67,163L65,164L66,165L64.5,166L64.5,167.5L60.5,169.5L59,170L60,168L59,166.5L56,165.5L54.5,164L51.5,164L45.5,166.5L43,169.5L42,173L39.5,174L36.5,172L35,172L34,170L31.5,168.5L34,167.5L36,164L36,162L35,158.5L33,156L34.5,153L37,152L39,152.5L41.5,155L45,156.5L47,156.5L51.5,152.5L51,149.5L54,146.5L53.5,146Z","c":[48,160],"box":[4,122,70,68]}];
+
+const $ = s => document.querySelector(s);
+const el = (tag, attrs={}, text) => { const n=document.createElement(tag); for(const k in attrs) n.setAttribute(k, attrs[k]); if(text!=null) n.textContent=text; return n; };
+const pad = i => String(i+1).padStart(2,"0");
+const store = {get(k){try{return localStorage.getItem(k)}catch(e){return null}}, set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+async function apiGet(action, extra={}){
+  const u=new URL(ENDPOINT); u.searchParams.set("action",action); for(const k in extra) u.searchParams.set(k,extra[k]);
+  const r=await fetch(u.toString()); if(!r.ok) throw new Error("連線失敗（"+r.status+"）"); return r.json();
+}
+async function apiPost(body){
+  const r=await fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(body)});
+  if(!r.ok) throw new Error("連線失敗（"+r.status+"）"); return r.json();
+}
+
+
+const QCOL=["#ad6660","#628571","#56708f","#a68a3e","#7d766c"];
+let PUB={candidates:[]}, CITY=store.get("p10j-city")||"臺北市", QI=0;
+const got = c => c.status==="done"||c.status==="part";
+
+(function(){ const now=new Date(); const tp=new Date(now.toLocaleString("en-US",{timeZone:"Asia/Taipei"})); const d=Math.ceil((new Date(2026,10,28)-new Date(tp.getFullYear(),tp.getMonth(),tp.getDate()))/864e5); $("#days").textContent=String(Math.max(d,0)); })();
+
+const NS="http://www.w3.org/2000/svg";
+const NUDGE={"臺北市":[-14,-6],"新北市":[18,10],"基隆市":[16,-8],"新竹市":[-16,0],"新竹縣":[10,6],"嘉義市":[-14,-2],"嘉義縣":[14,6],"桃園市":[-6,-4]};
+let hoverT=null;
+function setCity(n){ if(n===CITY) return; CITY=n; store.set("p10j-city",n); render(); }
+function buildMap(){
+  const box=$("#mapbox"); const svg=document.createElementNS(NS,"svg"); svg.setAttribute("viewBox","0 0 420 560");
+  const g0=document.createElementNS(NS,"g"), g=document.createElementNS(NS,"g"); svg.append(g0,g); box.append(svg);
+  TWMAP.forEach(f=>{
+    const p=document.createElementNS(NS,"path"); p.setAttribute("d",f.d); p.setAttribute("class","ct"); p.dataset.n=f.n;
+    p.setAttribute("tabindex","0"); p.setAttribute("role","button"); p.setAttribute("aria-label",f.n);
+    const wire=e=>{ e.addEventListener("mouseenter",()=>{ clearTimeout(hoverT); hoverT=setTimeout(()=>setCity(f.n),140); }); e.addEventListener("click",()=>setCity(f.n)); };
+    p.addEventListener("mouseenter",()=>g.appendChild(p));
+    p.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); setCity(f.n); $("#qa").scrollIntoView(); } });
+    wire(p); g.append(p);
+    let cx=f.c[0], cy=f.c[1];
+    if(f.box){ const [x,y,w,h]=f.box; const r=document.createElementNS(NS,"rect"); r.setAttribute("x",x);r.setAttribute("y",y);r.setAttribute("width",w);r.setAttribute("height",h);r.setAttribute("class","box"); r.dataset.n=f.n; wire(r); g0.append(r); cx=x+w/2; cy=y+h+10; }
+    const nd=NUDGE[f.n]||[0,0];
+    const b=el("button",{type:"button",class:"pill"},f.n); b.dataset.n=f.n; b.style.left=((cx+nd[0])/420*100)+"%"; b.style.top=((cy+nd[1])/560*100)+"%";
+    wire(b); b.addEventListener("click",()=>$("#qa").scrollIntoView()); box.append(b);
+  });
+}
+function paintMap(){
+  document.querySelectorAll("#mapbox [data-n]").forEach(e=>e.classList.toggle("on",e.dataset.n===CITY));
+  const s=document.querySelector("#mapbox .ct.on"); if(s) s.parentNode.appendChild(s);
+}
+function render(){
+  paintMap();
+  const rows=PUB.candidates.filter(c=>c.city===CITY), k=rows.filter(got).length;
+  $("#selName").textContent=CITY; $("#selN").textContent=rows.length; $("#selGot").textContent=k;
+  $("#ansCity2").textContent="目前：" + CITY;
+  const ul=$("#selNames"); ul.replaceChildren(); rows.forEach(c=>{ const li=el("li",{},c.name); li.append(el("span",{},got(c)?"已回覆":(c.party||""))); ul.append(li); });
+  [...$("#qtabs").children].forEach((b,i)=>b.setAttribute("aria-pressed",String(i===QI)));
+  const q=QUESTIONS[QI]; const qn=$("#qnow"); qn.style.setProperty("--qc",QCOL[QI%QCOL.length]);
+  const ask=el("h3",{class:"ask"}); ask.append(el("em",{},pad(QI)+"　"+q.t), document.createTextNode(q.c));
+  const meta=el("div",{class:"meta"});
+  if(q.s.length){ const d=el("div"); d.append(el("small",{},"立場題"), document.createTextNode(q.s.join("　"))); meta.append(d); }
+  const g=el("div"); g.append(el("small",{},"可檢驗承諾的寫法"), document.createTextNode(q.g)); meta.append(g);
+  qn.replaceChildren(ask, meta, el("p",{class:"desc"},q.d));
+  const box=$("#cards"); box.replaceChildren();
+  rows.forEach(c=>{
+    const a=(c.answers||{})[q.id]; const card=el("article",{class:"card"});
+    card.append(el("span",{class:"date"},got(c)&&c.submittedAt?c.submittedAt.replace(/-/g,".")+" 送出":"—"));
+    const h=el("h3",{},c.name); if(c.example) h.firstChild.after(el("span",{class:"tag"},"範例")); h.append(el("span",{},c.party||"")); card.append(h);
+    if(!got(c)){ card.append(el("p",{class:"none"},STATUS[c.status]||"尚未回覆")); box.append(card); return; }
+    if(q.s.length){ const st=el("div",{class:"st"}); q.s.forEach((x,i)=>{ const v=a&&a.stances&&a.stances[i]; const d=el("div"); d.append(el("b",{},v||"未表態"), document.createTextNode(x)); st.append(d); }); card.append(st); }
+    const gl=el("p",{class:"goal"}); gl.append(el("small",{},"承諾"), document.createTextNode(a&&a.goal?a.goal:"未提出具體目標")); card.append(gl);
+    card.append(a&&a.text?el("p",{class:"txt"},a.text):el("p",{class:"none"},"本題未作答"));
+    box.append(card);
+  });
+}
+function buildTabs(){
+  const t=$("#qtabs");
+  QUESTIONS.forEach((q,i)=>{ const b=el("button",{type:"button",class:"qtab","aria-pressed":"false"}); b.style.setProperty("--qc",QCOL[i%QCOL.length]); b.append(el("b",{},pad(i)), document.createTextNode(q.t)); b.addEventListener("click",()=>{ QI=i; render(); }); t.append(b); });
+}
+let SHOW_DEMO=false;
+const ROSTER_PUB={candidates:ROSTER.map((r,i)=>({id:"r"+i,name:r[0],city:r[1],party:r[2],status:"none",answers:{}}))};
+function demoNotice(){
+  const n=$("#pubNotice"); n.replaceChildren();
+  n.append(document.createTextNode(SHOW_DEMO?"目前顯示虛構的範例回覆（姓名皆非真實參選人），用來預覽版面。　":"參選人名單依中選會審定公告；候選人送出的回覆會即時出現在這裡。　"));
+  const b=el("button",{type:"button",class:"lnk"},SHOW_DEMO?"回到正式名單":"看範例回覆");
+  b.addEventListener("click",()=>{ SHOW_DEMO=!SHOW_DEMO; PUB=SHOW_DEMO?DEMO:ROSTER_PUB; if(SHOW_DEMO&&!PUB.candidates.some(c=>c.city===CITY)) CITY="高雄市"; demoNotice(); render(); });
+  n.append(b);
+}
+async function load(){
+  if(!ENDPOINT){ PUB=ROSTER_PUB; demoNotice(); }
+  else{ try{ PUB=await apiGet("public"); $("#pubNotice").textContent=PUB.updated?"資料更新："+PUB.updated:""; }catch(e){ PUB=ROSTER_PUB; $("#pubNotice").textContent="暫時無法載入回覆資料，以下先列出參選人名單。"; } }
+  if(!CITIES.includes(CITY)) CITY="臺北市";
+  render();
+}
+buildMap(); buildTabs(); load();
+</script>
+</body></html>
