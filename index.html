@@ -95,6 +95,10 @@ nav.main a:hover{opacity:.55}
 .card .goal small{display:inline-block;background:var(--ink);color:#fff;font-size:10px;padding:0 6px;margin-right:6px;font-weight:500}
 .card .txt{font-size:12.5px;color:#444;white-space:pre-wrap;overflow-wrap:anywhere}
 .card .none{font-size:12px;color:var(--muted)}
+.subarea{margin-top:56px;border-top:1px solid var(--ink);padding-top:22px}
+.subarea[hidden]{display:none}
+.subh{font-family:var(--serif);font-weight:900;font-size:18px;letter-spacing:.12em;margin-bottom:6px}
+.subarea .notice{margin-bottom:24px}
 .st{display:grid;gap:4px;font-size:12px}
 .st b{display:inline-block;border:1px solid var(--ink);font-size:10.5px;padding:0 6px;margin-right:6px;font-weight:500}
 .tag{font-size:9.5px;border:1px solid var(--line);padding:0 5px;margin-left:6px;font-family:var(--sans);font-weight:400;color:var(--muted);vertical-align:middle}
@@ -237,6 +241,11 @@ footer{background:#f98b64;color:#262626}
       <div class="qnow" id="qnow"></div>
       <p class="notice" id="pubNotice"></p>
       <div class="cards" id="cards"></div>
+      <div class="subarea" id="subArea" hidden>
+        <h3 class="subh">縣轄市長參選人回覆</h3>
+        <p class="notice">本區為本社另行邀請之縣轄市長參選人，只列出已回覆者，不列入縣市長回覆統計。部分題目屬縣府權限，參選人可說明市公所能推動的部分及向縣府爭取的方向。</p>
+        <div class="cards" id="cardsSub"></div>
+      </div>
     </section>
 
     <section class="lower" id="about">
@@ -394,6 +403,7 @@ async function apiPost(body){
 const QCOL=["#ad6660","#628571","#56708f","#a68a3e","#7d766c"];
 let PUB={candidates:[]}, CITY=store.get("p10j-city")||"臺北市", QI=0;
 const got = c => c.status==="done"||c.status==="part";
+const isSub = c => c.office==="縣轄市長";
 
 (function(){ const now=new Date(); const tp=new Date(now.toLocaleString("en-US",{timeZone:"Asia/Taipei"})); const d=Math.ceil((new Date(2026,10,28)-new Date(tp.getFullYear(),tp.getMonth(),tp.getDate()))/864e5); $("#days").textContent=String(Math.max(d,0)); })();
 
@@ -424,7 +434,7 @@ function paintMap(){
 }
 function render(){
   paintMap();
-  const rows=PUB.candidates.filter(c=>c.city===CITY), k=rows.filter(got).length;
+  const all=PUB.candidates.filter(c=>c.name&&c.city===CITY), rows=all.filter(c=>!isSub(c)), subs=all.filter(c=>isSub(c)&&got(c)), k=rows.filter(got).length;
   $("#selName").textContent=CITY; $("#selN").textContent=rows.length; $("#selGot").textContent=k;
   $("#ansCity2").textContent="目前：" + CITY;
   const ul=$("#selNames"); ul.replaceChildren(); rows.forEach(c=>{ const li=el("li",{},c.name); li.append(el("span",{},got(c)?"已回覆":(c.party||""))); ul.append(li); });
@@ -435,17 +445,18 @@ function render(){
   if(q.s.length){ const d=el("div"); d.append(el("small",{},"立場題"), document.createTextNode(q.s.join("　"))); meta.append(d); }
   const g=el("div"); g.append(el("small",{},"可檢驗承諾的寫法"), document.createTextNode(q.g)); meta.append(g);
   qn.replaceChildren(ask, meta, el("p",{class:"desc"},q.d));
-  const box=$("#cards"); box.replaceChildren();
-  rows.forEach(c=>{
+  const draw=(list,box)=>{ box.replaceChildren();
+  list.forEach(c=>{
     const a=(c.answers||{})[q.id]; const card=el("article",{class:"card"});
     card.append(el("span",{class:"date"},got(c)&&c.submittedAt?c.submittedAt.replace(/-/g,".")+" 送出":"—"));
-    const h=el("h3",{},c.name); if(c.example) h.firstChild.after(el("span",{class:"tag"},"範例")); h.append(el("span",{},c.party||"")); card.append(h);
+    const h=el("h3",{},c.name); if(c.example) h.firstChild.after(el("span",{class:"tag"},"範例")); h.append(el("span",{},isSub(c)?(c.district||"")+"長參選人・"+(c.party||""):(c.party||""))); card.append(h);
     if(!got(c)){ card.append(el("p",{class:"none"},STATUS[c.status]||"尚未回覆")); box.append(card); return; }
     if(q.s.length){ const st=el("div",{class:"st"}); q.s.forEach((x,i)=>{ const v=a&&a.stances&&a.stances[i]; const d=el("div"); d.append(el("b",{},v||"未表態"), document.createTextNode(x)); st.append(d); }); card.append(st); }
     const gl=el("p",{class:"goal"}); gl.append(el("small",{},"承諾"), document.createTextNode(a&&a.goal?a.goal:"未提出具體目標")); card.append(gl);
     card.append(a&&a.text?el("p",{class:"txt"},a.text):el("p",{class:"none"},"本題未作答"));
     box.append(card);
-  });
+  }); };
+  draw(rows,$("#cards")); draw(subs,$("#cardsSub")); $("#subArea").hidden=!subs.length;
 }
 function buildTabs(){
   const t=$("#qtabs");
