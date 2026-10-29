@@ -468,8 +468,9 @@ async function checkCode(){
   else{ msg.className="notice wait"; msg.textContent="確認中…"; try{ res=await apiGet("lookup",{code}); }catch(e){ msg.className="notice"; msg.textContent="暫時無法連線，請稍後再試。"; return; } }
   if(!res.ok){ msg.className="notice"; msg.textContent=res.error||"查無此邀請碼，請與主辦單位聯絡。"; return; }
   current={code, ...res.candidate};
-  const who=$("#who"); who.replaceChildren(); who.append(el("b",{},current.name), el("span",{},current.city+"長參選人"), el("span",{class:"note"},current.party||""));
+  const who=$("#who"); who.replaceChildren(); who.append(el("b",{},current.name), el("span",{},(current.office==="縣轄市長"?(current.district||current.city):current.city)+"長參選人"), el("span",{class:"note"},current.party||""));
   if(res.demo) who.append(el("span",{class:"ex"},"示範"));
+    if(current.office==="縣轄市長") who.append(el("span",{class:"note"},"部分題目屬縣府權限，可說明市公所能推動的部分，以及會向縣府爭取什麼。"));
   const draft=store.get(draftKey());
   if(draft){ try{ fill(JSON.parse(draft)); $("#draftNote").textContent="已載入這台電腦上的暫存內容"; }catch(e){} }
   else if(res.last){ fill(res.last); $("#draftNote").textContent="已載入第 "+res.last.version+" 版（"+res.last.submittedAt+"）的內容"; }
